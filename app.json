@@ -1,0 +1,35 @@
+{
+  "id": "se.faboul.svenskahelgdagar",
+  "version": "1.0.0",
+  "compatibility": ">=1.5.0",
+  "sdk": 2,
+  "name": {
+    "en": "Swedish holidays"
+  },
+  "description": {
+    "en": "Provides homey the function to know which days are Swedish holidays"
+  },
+  "category": [
+    "tools"
+  ],
+  "permissions": [],
+  "images": {
+    "large": "/assets/images/large.png",
+    "small": "/assets/images/small.png"
+  },
+  "author": {
+    "name": "Sammy Johannesson",
+    "email": "sammy.johannesson@gmail.com"
+  },
+  "flow": {
+    "conditions": [
+      {
+          "id": "is_holiday",
+          "title": {
+              "en": "It !{{is|isn't}} Swedish holiday today"
+          }
+        }
+    ]
+        
+  }
+}
