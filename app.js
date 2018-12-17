@@ -1,110 +1,163 @@
 'use strict';
-var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+const fetch = require("node-fetch");
+
 
 const Homey = require('homey');
 
-//const TodaySwedishHolidayToken = new Homey.FlowToken('TodaySwedishHoliday', {
-//	type: 'string',
-//	title: 'Today is Swedish holiday'
-//});
+const TodaySwedishHolidayToken = new Homey.FlowToken('TodaySwedishHoliday', {
+	type: 'boolean',
+	title: 'Holiday'
+});
 
-var SwedishHoliday;
-var DataUrl = "https://api.dryg.net/dagar/v2.1"; //Using api.dryg.net
+const TodaySwedishWorkFreeDayToken = new Homey.FlowToken('TodaySwedishWorkFreeDay', {
+	type: 'boolean',
+	title: 'Is workday'
+});
+
+const TodaySwedishCurrentDate = new Homey.FlowToken('TodaySwedishCurrentDate', {
+	type: 'string',
+	title: 'API Date'
+});
+
+var SwedishHolidayToday;
+var SwedishHolidayTomorrow;
+var SwedishHolidayYesterday;
+
+const DataUrl = "https://api.dryg.net/dagar/v2.1"; //Using api.dryg.net
 
 let HolidayCondition = new Homey.FlowCardCondition('is_holiday');
+let DayOfWorkCondition = new Homey.FlowCardCondition('is_DayOfWork');
 
 class MyApp extends Homey.App {
 
 
-	
-	onInit() {
+
+	async onInit() {
 		this.log('MyApp is running...');
-		SwedishHoliday = this.UpdateDataFromAPI(); //Retrive data on app lunch
-		
+
 		HolidayCondition
-		.register()
-		.registerRunListener(( args, state ) => {
-			this.CheckIfDataisValid();
-			let Holiday = SwedishHoliday.ThisIsRedDay
-			this.log('Condition card is running, value is '+ SwedishHoliday.CurrentDate+" "+SwedishHoliday.ThisIsRedDay);
-			return Promise.resolve( Holiday );
-		});
+			.register()
+			.registerRunListener(async (args, state) => {
+				console.log(args);
+				await this.updateDataIfInvalid();
+				if (args.CurrentDay == "today") {
+					return Promise.resolve(SwedishHolidayToday.ThisIsRedDay);
+				} else if (args.CurrentDay == "tomorrow") {
+					return Promise.resolve(SwedishHolidayTomorrow.ThisIsRedDay);
+				} else if (args.CurrentDay == "yesterday") {
+					return Promise.resolve(SwedishHolidayYesterday.ThisIsRedDay);
+				} else {
+					return Promise.resolve(SwedishHolidayToday.ThisIsRedDay);
+				}
+			});
 
+		DayOfWorkCondition
+			.register()
+			.registerRunListener(async (args, state) => {
+				await this.updateDataIfInvalid();
+				if (args.CurrentDay == "today") {
+					return Promise.resolve(SwedishHolidayToday.WorkFreeDay);
+				} else if (args.CurrentDay == "tomorrow") {
+					return Promise.resolve(SwedishHolidayTomorrow.WorkFreeDay);
+				} else if (args.CurrentDay == "yesterday") {
+					return Promise.resolve(SwedishHolidayYesterday.WorkFreeDay);
+				} else {
+					return Promise.resolve(SwedishHolidayToday.WorkFreeDay);
+				}
+			});
 
+		await TodaySwedishHolidayToken.register();
+		await TodaySwedishWorkFreeDayToken.register();
+		await TodaySwedishCurrentDate.register();
+
+		await this.GetData();
 	};
 
-	CheckIfDataisValid(){ //Check if data is old, if old get new data from API
-		var d1 = new Date(SwedishHoliday.CurrentDate);
-		var d2 = new Date();
-		d2.setHours(1,0,0,0)
+	async GetData() {
+		try {
+			console.log("Async getdata start")
+			SwedishHolidayYesterday = await this.UpdateDataFromAPI("yesterday");
+			SwedishHolidayToday = await this.UpdateDataFromAPI("today");
+			SwedishHolidayTomorrow = await this.UpdateDataFromAPI("tomorrow");
+			await this.updateTokens();
+			console.log("Async getdata complete");
+		} catch (e) {
+			console.error('Error caught Getdata ' + e);
+		}
+	};
 
-		
-			if (d1.getTime() == d2.getTime() ){
-				console.log ("Correct day, no nothing")
-				return true;
-			} else {
-				console.log("Old data, request new from API")
-				SwedishHoliday = this.UpdateDataFromAPI();
-				return false;
-			}
- 
+	async updateTokens() {
+
+		console.log("Updating tokens");
+		await TodaySwedishHolidayToken.setValue(SwedishHolidayToday.ThisIsRedDay);
+		await TodaySwedishWorkFreeDayToken.setValue(SwedishHolidayToday.WorkFreeDay);
+		await TodaySwedishCurrentDate.setValue(SwedishHolidayToday.CurrentDate);
 
 	}
 
-
-	UpdateDataFromAPI() { //Get data from API adapted for https://api.dryg.net/
-		this.log('Getting current data from API');
-
-		var d = new Date(); // Get the current day
-		var year = d.getFullYear().toString();
-		var month = d.getMonth()+1;
-		month.toString();
-		var day = d.getDate().toString();
-
-		var JsonURL = DataUrl+"/"+year+"/"+month+"/"+day;
-		this.log("Using API URL: "+JsonURL);
-
-
-		const xhr = new XMLHttpRequest()
-		xhr.onreadystatechange = () => {
-		  if (xhr.readyState === 4 && xhr.status === 200) {
-			xhr.status === 200 ? console.log(xhr.responseText) : console.error('error')
-			
-				try {
-				var myArr = JSON.parse(xhr.responseText); //Get Json and print debug below
-
-
-				console.log("Datum: " + myArr.dagar[0]["datum"]);
-				console.log("Arbetsfri dag: "+myArr.dagar[0]["arbetsfri dag"]);
-				console.log("Röd dag:"+ myArr.dagar[0]["r\u00f6d dag"]);
-				console.log("Flaggdag:"+ myArr.dagar[0]["flaggdag"]);
-
-				SwedishHoliday =  {
-					CurrentDate:myArr.dagar[0]["datum"],
-					WorkFreeDay:this.convertToBoolean(myArr.dagar[0]["arbetsfri dag"]),
-					ThisIsRedDay:this.convertToBoolean(myArr.dagar[0]["r\u00f6d dag"],),
-					FlagDay:myArr.dagar[0]["flaggdag"],
-				}; //Return object
-
-					console.log("Var update complete")
-
-				} catch (e) {
-					console.log(e)
-					Console.log("Error JSON request")
-				};
-
-		  	}
-			else {
-
-				console.log("Loading ReqHed "+xhr.status);
-
-		  }
+	SelectDate(input) {
+		var todayDate = new Date();
+		if (input == "today") {
+			todayDate.setDate(todayDate.getDate() - 0);
+			return todayDate;
+		} else if (input == "yesterday") {
+			todayDate.setDate(todayDate.getDate() - 1);
+			return todayDate;
+		} else if (input == "tomorrow") {
+			todayDate.setDate(todayDate.getDate() + 1);
+			return todayDate;
+		} else {
+			return todayDate.setDate(todayDate.getDate());
 		}
-		xhr.open('GET', JsonURL)
-		xhr.send()
 	};
 
-	convertToBoolean(input){
+	async updateDataIfInvalid() { //Check if data is old, if old get new data from API
+		var d1 = new Date(SwedishHolidayToday.CurrentDate);
+		var d2 = new Date();
+		d2.setHours(1, 0, 0, 0)
+
+		if (d1.getTime() === d2.getTime()) {
+			console.log("Correct day stored")
+		} else {
+			console.log("Old data, request new from API")
+			await GetData();
+		}
+	};
+
+	createURL(input) {
+		const d = this.SelectDate(input);
+		const year = d.getFullYear();
+		const month = d.getMonth() + 1;
+		const day = d.getDate();
+
+		return `${DataUrl}/${year}/${month}/${day}`;
+	};
+
+	async runFetchOperation(input) {
+		this.log('Fetch data from API ' + input);
+		const response = await fetch(this.createURL(input));
+
+		this.log('Fetch data from API complete');
+
+		if (response.ok) {
+			return await response.json();
+		}
+
+		throw Error(`Failed to get data from API: ${input}, response code: ${response.status}`);
+	};
+
+	async UpdateDataFromAPI(input) { //Get data from API adapted for https://api.dryg.net/ with fetch
+
+		const response = await this.runFetchOperation(input);
+		return {
+			CurrentDate: response.dagar[0]["datum"],
+			WorkFreeDay: this.convertToBoolean(response.dagar[0]["arbetsfri dag"]),
+			ThisIsRedDay: this.convertToBoolean(response.dagar[0]["r\u00f6d dag"]),
+			FlagDay: response.dagar[0]["flaggdag"],
+		}; //Return object
+	};
+
+	convertToBoolean(input) {
 
 		if (input == "Ja") {
 			return true;

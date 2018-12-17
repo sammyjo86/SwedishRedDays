@@ -21,14 +21,75 @@
     "name": "Sammy Johannesson",
     "email": "sammy.johannesson@gmail.com"
   },
+  "bugs": {
+    "url": "https://github.com/sammyjo86/SwedishRedDays/issues"
+  },  
   "flow": {
     "conditions": [
       {
           "id": "is_holiday",
           "title": {
-              "en": "It !{{is|isn't}} Swedish holiday today"
+              "en": "!{{Is|Isn't}} Swedish holiday"
+          },
+          "args": [
+            {
+                "type": "dropdown",
+                "name": "CurrentDay",
+                "values": [
+                    {
+                        "id": "today",
+                        "label": {
+                            "en": "Today"
+                        }
+                    },
+                    {
+                        "id": "yesterday",
+                        "label": {
+                            "en": "Yesterday"
+                        }
+                    },
+                    {
+                      "id": "tomorrow",
+                      "label": {
+                          "en": "Tomorrow"
+                      }
+                   }
+                ]
+            }
+        ]
+        },
+        {
+            "id": "is_DayOfWork",
+            "title": {
+                "en": "!{{Is|iIsn't}} a Swedish day of work"
+            },
+            "args": [
+              {
+                  "type": "dropdown",
+                  "name": "CurrentDay",
+                  "values": [
+                      {
+                          "id": "today",
+                          "label": {
+                              "en": "Today"
+                          }
+                      },
+                      {
+                          "id": "yesterday",
+                          "label": {
+                              "en": "Yesterday"
+                          }
+                      },
+                      {
+                        "id": "tomorrow",
+                        "label": {
+                            "en": "Tomorrow"
+                        }
+                     }
+                  ]
+              }
+          ]
           }
-        }
     ]
         
   }
