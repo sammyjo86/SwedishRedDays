@@ -1,6 +1,6 @@
 {
   "id": "se.faboul.svenskahelgdagar",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "compatibility": ">=1.5.0",
   "sdk": 2,
   "name": {
@@ -61,7 +61,7 @@
         {
             "id": "is_DayOfWork",
             "title": {
-                "en": "!{{Is|iIsn't}} a Swedish day of work"
+                "en": "!{{Swedish day off work|Swedish business day}}"
             },
             "args": [
               {

@@ -6,12 +6,12 @@ const Homey = require('homey');
 
 const TodaySwedishHolidayToken = new Homey.FlowToken('TodaySwedishHoliday', {
 	type: 'boolean',
-	title: 'Holiday'
+	title: 'holiday'
 });
 
 const TodaySwedishWorkFreeDayToken = new Homey.FlowToken('TodaySwedishWorkFreeDay', {
 	type: 'boolean',
-	title: 'Is workday'
+	title: 'Business day'
 });
 
 const TodaySwedishCurrentDate = new Homey.FlowToken('TodaySwedishCurrentDate', {
@@ -29,8 +29,6 @@ let HolidayCondition = new Homey.FlowCardCondition('is_holiday');
 let DayOfWorkCondition = new Homey.FlowCardCondition('is_DayOfWork');
 
 class MyApp extends Homey.App {
-
-
 
 	async onInit() {
 		this.log('MyApp is running...');
@@ -69,7 +67,6 @@ class MyApp extends Homey.App {
 		await TodaySwedishHolidayToken.register();
 		await TodaySwedishWorkFreeDayToken.register();
 		await TodaySwedishCurrentDate.register();
-
 		await this.GetData();
 	};
 
@@ -79,8 +76,8 @@ class MyApp extends Homey.App {
 			SwedishHolidayYesterday = await this.UpdateDataFromAPI("yesterday");
 			SwedishHolidayToday = await this.UpdateDataFromAPI("today");
 			SwedishHolidayTomorrow = await this.UpdateDataFromAPI("tomorrow");
-			await this.updateTokens();
 			console.log("Async getdata complete");
+			await this.updateTokens();
 		} catch (e) {
 			console.error('Error caught Getdata ' + e);
 		}
@@ -90,7 +87,7 @@ class MyApp extends Homey.App {
 
 		console.log("Updating tokens");
 		await TodaySwedishHolidayToken.setValue(SwedishHolidayToday.ThisIsRedDay);
-		await TodaySwedishWorkFreeDayToken.setValue(SwedishHolidayToday.WorkFreeDay);
+		await TodaySwedishWorkFreeDayToken.setValue(this.convertToBooleanOp(SwedishHolidayToday.WorkFreeDay));
 		await TodaySwedishCurrentDate.setValue(SwedishHolidayToday.CurrentDate);
 
 	}
@@ -166,6 +163,17 @@ class MyApp extends Homey.App {
 			return false;
 		}
 	};
+
+	convertToBooleanOp(input) {
+
+		if (input == true) {
+			return false;
+		}
+		else {
+			return true;
+		}
+	};
+
 
 };
 
