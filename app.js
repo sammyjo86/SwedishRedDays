@@ -117,7 +117,7 @@ class MyApp extends Homey.App {
 			console.log("Correct day stored")
 		} else {
 			console.log("Old data, request new from API")
-			await GetData();
+			await this.GetData();
 		}
 	};
 

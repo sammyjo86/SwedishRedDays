@@ -1,0 +1,22 @@
+{
+  "name": "se.faboul.svenskahelgdagar",
+  "version": "1.0.2",
+  "description": "Provides homey the function to know if the current day is a holiday (Red day) or a day of work. Using the ”Svenska dagar API 2.1”",
+  "main": "app.js",
+  "dependencies": {
+    "node-fetch": "^2.3.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sammyjo86/SwedishRedDays.git"
+  },
+  "author": "",
+  "license": "GNU version 3",
+  "bugs": {
+    "url": "https://github.com/sammyjo86/SwedishRedDays/issues"
+  },
+  "homepage": "https://github.com/sammyjo86/SwedishRedDays#readme"
+}
