@@ -7,7 +7,7 @@
     "en": "Swedish holidays"
   },
   "description": {
-    "en": "Provides homey the function to know which days are Swedish holidays"
+    "en": "Provides Homey the function to know which days are Swedish holidays"
   },
   "category": [
     "tools"
@@ -20,6 +20,14 @@
   "author": {
     "name": "Sammy Johannesson",
     "email": "sammy.johannesson@gmail.com"
+  },
+  "contributors": {
+    "developers": [
+      {
+        "name": "Johan Bendz",
+        "email": "Johan_Bendz@hotmail.com"
+      }
+    ]
   },
   "bugs": {
     "url": "https://github.com/sammyjo86/SwedishRedDays/issues"
@@ -89,8 +97,13 @@
                   ]
               }
           ]
+          },
+          {
+            "id": "is_FlagDay",
+            "title": {
+                "en": "!{{Is|Isn't}} Swedish flag day"
+            }
           }
-    ]
-        
+    ]  
   }
 }
