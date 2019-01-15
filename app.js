@@ -1,43 +1,33 @@
 'use strict';
 const fetch = require("node-fetch");
-
-
 const Homey = require('homey');
 
-const TodaySwedishHolidayToken = new Homey.FlowToken('TodaySwedishHoliday', {
-	type: 'boolean',
-	title: 'holiday'
-});
+//Create Tokens
+const TodaySwedishHolidayToken = new Homey.FlowToken('TodaySwedishHoliday', {type: 'boolean',title: 'holiday'});
+const TodaySwedishWorkFreeDayToken = new Homey.FlowToken('TodaySwedishWorkFreeDay', {type: 'boolean',title: 'Business day'});
+const TodaySwedishCurrentDate = new Homey.FlowToken('TodaySwedishCurrentDate', {type: 'string',title: 'API Date'});
 
-const TodaySwedishWorkFreeDayToken = new Homey.FlowToken('TodaySwedishWorkFreeDay', {
-	type: 'boolean',
-	title: 'Business day'
-});
-
-const TodaySwedishCurrentDate = new Homey.FlowToken('TodaySwedishCurrentDate', {
-	type: 'string',
-	title: 'API Date'
-});
-
+//Create var
 var SwedishHolidayToday;
 var SwedishHolidayTomorrow;
 var SwedishHolidayYesterday;
 
+//Parameters
 const DataUrl = "https://api.dryg.net/dagar/v2.1"; //Using api.dryg.net
 
+//Set Flow JSON names
 let HolidayCondition = new Homey.FlowCardCondition('is_holiday');
 let DayOfWorkCondition = new Homey.FlowCardCondition('is_DayOfWork');
 
 class MyApp extends Homey.App {
 
 	async onInit() {
-		this.log('MyApp is running...');
+		this.log('Swedish holiday is running...');
 
 		HolidayCondition
 			.register()
 			.registerRunListener(async (args, state) => {
-				console.log(args);
-				await this.updateDataIfInvalid();
+				await this.updateDataIfInvalid(); //Check if data needs update
 				if (args.CurrentDay == "today") {
 					return Promise.resolve(SwedishHolidayToday.ThisIsRedDay);
 				} else if (args.CurrentDay == "tomorrow") {
@@ -64,13 +54,16 @@ class MyApp extends Homey.App {
 				}
 			});
 
-		await TodaySwedishHolidayToken.register();
+		//Register tokens
+		await TodaySwedishHolidayToken.register(); 
 		await TodaySwedishWorkFreeDayToken.register();
 		await TodaySwedishCurrentDate.register();
+
+		//Get data on appinit
 		await this.GetData();
 	};
 
-	async GetData() {
+	async GetData() { //Gets data from the API
 		try {
 			console.log("Async getdata start")
 			SwedishHolidayYesterday = await this.UpdateDataFromAPI("yesterday");
@@ -79,7 +72,7 @@ class MyApp extends Homey.App {
 			console.log("Async getdata complete");
 			await this.updateTokens();
 		} catch (e) {
-			console.error('Error caught Getdata ' + e);
+			console.error('Error caught Getdata ' + e); //error Try again later
 		}
 	};
 
