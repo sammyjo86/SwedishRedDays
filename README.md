@@ -6,7 +6,9 @@ Provides homey the function to know if the current day is a holiday (Red day) or
   - If the current day is a “red day” this will trigger, e.g. Sundays and May 1st (But not christmas eve).
 - Card 2: Swedish day off work
   - If the current day is off work this will trigger, e.g. Saturday, Sundays, Christmas eve, New years eve and May 1st.
-- Card 3: Swedish flag day
+- Card 3: Is Swedish holiday (Pick the holiday)
+  - Pick the holiday you wish in the condition
+- Card 4: Swedish flag day
   - If the current day is an official flag day of Sweden this will trigger.
 
 - Tags:
