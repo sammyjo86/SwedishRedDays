@@ -1,13 +1,13 @@
 {
   "id": "se.faboul.svenskahelgdagar",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "compatibility": ">=1.5.0",
   "sdk": 2,
   "name": {
     "en": "Swedish holidays"
   },
   "description": {
-    "en": "Provides homey the function to know which days are Swedish holidays"
+    "en": "Provides Homey the function to know which days are Swedish holidays"
   },
   "category": [
     "tools"
@@ -20,6 +20,18 @@
   "author": {
     "name": "Sammy Johannesson",
     "email": "sammy.johannesson@gmail.com"
+  },
+  "contributors": {
+"developers": [
+        {
+            "name": "Sonny johannesson",
+            "email": "sonny.johannesson@gmail.com"
+        },
+        {
+            "name": "Johan Bendz",
+            "email": "Johan_Bendz@hotmail.com"
+        }
+    ]
   },
   "bugs": {
     "url": "https://github.com/sammyjo86/SwedishRedDays/issues"
@@ -89,8 +101,94 @@
                   ]
               }
           ]
+          },
+          {
+            "id": "is_MasterHoliday",
+            "title": {
+                "en": "!{{Is|Isn't}} Swedish holiday"
+            },
+            "args": [
+              {
+                  "type": "dropdown",
+                  "name": "MasterHoliday",
+                  "values": [
+                      {
+                          "id": "christmas",
+                          "label": {
+                              "en": "Christmas"
+                          }
+                      },
+                      {
+                          "id": "easter",
+                          "label": {
+                              "en": "Easter weekend"
+                          }
+                      },
+                      {
+                        "id": "pentecost",
+                        "label": {
+                            "en": "Pentecost (Pingst)"
+                        }
+                     }
+                     ,
+                      {
+                        "id": "valborg",
+                        "label": {
+                            "en": "Walpurgis/1st may (Valborg/1e maj)"
+                        }
+                     }
+                     ,
+                      {
+                        "id": "newyear",
+                        "label": {
+                            "en": "New Year"
+                        }
+                     }
+                     ,
+                      {
+                        "id": "trettonhelgen",
+                        "label": {
+                            "en": "Epiphany weekend (Trettonhelgen)"
+                        }
+                     }
+                     ,
+                     {
+                       "id": "midsommar",
+                       "label": {
+                           "en": "Midsummer"
+                       }
+                    }
+                    ,
+                    {
+                      "id": "Kristi",
+                      "label": {
+                          "en": "Ascension Day (Kristi himmelfärd)"
+                      }
+                   }
+                   ,
+                   {
+                     "id": "skartorsdagen",
+                     "label": {
+                         "en": "Maundy Thursday (Skärtorsdagen)"
+                     }
+                  }
+                   ,
+                {
+                  "id": "allahelgonhelgen",
+                  "label": {
+                      "en": "All Saints Day"
+                  }
+               }
+                  ]
+              }
+          ]
+          },
+          {
+            "id": "is_FlagDay",
+            "title": {
+                "en": "!{{Is|Isn't}} Swedish flag day"
+            }
           }
-    ]
-        
+    ]  
   }
 }
