@@ -1,1 +1,14 @@
-{}
+{
+    "title": "Swedish holidays",
+    "tags": {
+      "TodaySwedishHoliday": "Holiday (Red)",
+      "TodaySwedishWorkFreeDay": "Business day",
+      "TodaySwedishCurrentDate": "Last API update",
+      "TodayFlagDay": "Flag day",
+      "TodayWeekDay": "Weekday",
+      "FirstNameOfTheDay": "Name of the day (1)",
+      "SecondNameOfTheDay": "Name of the day (2)",
+      "ThirdNameOfTheDay": "Name of the day (3)",
+      "HolidayNameToken": "Holiday name"
+    }
+  }
