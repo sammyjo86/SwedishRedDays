@@ -27,11 +27,42 @@ let DayOfWorkCondition = new Homey.FlowCardCondition('is_DayOfWork');
 let FlagDayCondition = new Homey.FlowCardCondition('is_FlagDay');
 let is_MasterHoliday = new Homey.FlowCardCondition('is_MasterHoliday');
 
+//Set Cron parameters
+const cronName = "swedishHolidayCronTask"
+const cronInterval = "0 0 * * *"; // 0 0 * * * = every day at midnight (00:00)
+
 class MyApp extends Homey.App {
 
 	async onInit() {
 		this.log('Swedish holiday is running...');
 
+		//Register crontask
+		Homey.ManagerCron.getTask(cronName)
+			.then(task => {
+				this.log("This crontask is already registred: " + cronName);
+				task.on('run', () => this.GetData());
+			})
+			.catch(err => {
+				if (err.code == 404) {
+					this.log("This crontask has not been registered yet, registering task: " + cronName);
+					Homey.ManagerCron.registerTask(cronName, cronInterval, null)
+						.then(task => {
+							task.on('run', () => this.GetData());
+						})
+						.catch(err => {
+							this.log(`problem with registering crontask: ${err.message}`);
+						});
+				} else {
+					this.log(`other cron error: ${err.message}`);
+				}
+			});
+	
+		//Unregister crontask on unload
+		Homey
+			.on('unload', () => {
+				Homey.ManagerCron.unregisterTask(cronName);
+			});
+		
 		HolidayCondition
 			.register()
 			.registerRunListener(async (args, state) => {
