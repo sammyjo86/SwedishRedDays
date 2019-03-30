@@ -1,13 +1,15 @@
 {
   "id": "se.faboul.svenskahelgdagar",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "compatibility": ">=1.5.0",
   "sdk": 2,
   "name": {
-    "en": "Swedish holidays"
+    "en": "Swedish holidays",
+    "sv": "Svenska helgdagar"
   },
   "description": {
-    "en": "Provides Homey the function to know which days are Swedish holidays"
+    "en": "Provides Homey the function to know which days are Swedish holidays",
+    "sv": "Ger Homey möjlighet att veta vilka dagar som är helgdagar och inte helgdagar"
   },
   "category": [
     "tools"
@@ -41,7 +43,8 @@
       {
           "id": "is_holiday",
           "title": {
-              "en": "!{{Is|Isn't}} Swedish holiday"
+              "en": "!{{Is|Isn't}} Swedish holiday",
+              "sv": "!{{Är|Är inte}} Svensk helgdag"
           },
           "args": [
             {
@@ -51,19 +54,22 @@
                     {
                         "id": "today",
                         "label": {
-                            "en": "Today"
+                            "en": "Today",
+                            "sv": "Idag"
                         }
                     },
                     {
                         "id": "yesterday",
                         "label": {
-                            "en": "Yesterday"
+                            "en": "Yesterday",
+                            "sv": "Igår"
                         }
                     },
                     {
                       "id": "tomorrow",
                       "label": {
-                          "en": "Tomorrow"
+                          "en": "Tomorrow",
+                          "sv": "Imorgon"
                       }
                    }
                 ]
@@ -73,7 +79,8 @@
         {
             "id": "is_DayOfWork",
             "title": {
-                "en": "!{{Swedish day off work|Swedish business day}}"
+                "en": "!{{Swedish day off work|Swedish business day}}",
+                "sv": "!{{Helgdag|Arbetsdag}}"
             },
             "args": [
               {
@@ -83,19 +90,22 @@
                       {
                           "id": "today",
                           "label": {
-                              "en": "Today"
+                              "en": "Today",
+                              "sv": "Idag"
                           }
                       },
                       {
                           "id": "yesterday",
                           "label": {
-                              "en": "Yesterday"
+                              "en": "Yesterday",
+                              "sv": "Igår"
                           }
                       },
                       {
                         "id": "tomorrow",
                         "label": {
-                            "en": "Tomorrow"
+                            "en": "Tomorrow",
+                            "sv": "Imorgon"
                         }
                      }
                   ]
@@ -105,7 +115,8 @@
           {
             "id": "is_MasterHoliday",
             "title": {
-                "en": "!{{Is|Isn't}} Swedish holiday"
+                "en": "!{{Is|Isn't}} Specific Swedish holiday",
+                "sv": "!{{Specifik helgdag|Inte en specifik helgdag}}"
             },
             "args": [
               {
@@ -115,68 +126,79 @@
                       {
                           "id": "christmas",
                           "label": {
-                              "en": "Christmas"
+                              "en": "Christmas",
+                              "sv": "Jul"
+                              
                           }
                       },
                       {
                           "id": "easter",
                           "label": {
-                              "en": "Easter weekend"
+                              "en": "Easter weekend",
+                              "sv": "Påsk"
                           }
                       },
                       {
                         "id": "pentecost",
                         "label": {
-                            "en": "Pentecost (Pingst)"
+                            "en": "Pentecost (Pingst)",
+                            "sv": "Pingst"
                         }
                      }
                      ,
                       {
                         "id": "valborg",
                         "label": {
-                            "en": "Walpurgis/1st may (Valborg/1e maj)"
+                            "en": "Walpurgis/1st may (Valborg/1e maj)",
+                            "sv": "Valborg/1e maj"
                         }
                      }
                      ,
                       {
                         "id": "newyear",
                         "label": {
-                            "en": "New Year"
+                            "en": "New Year",
+                            "sv": "Nyår"
                         }
                      }
                      ,
                       {
                         "id": "trettonhelgen",
                         "label": {
-                            "en": "Epiphany weekend (Trettonhelgen)"
+                            "en": "Epiphany weekend (Trettonhelgen)",
+                            "sv": "Trettonhelgen"
                         }
                      }
                      ,
                      {
                        "id": "midsommar",
                        "label": {
-                           "en": "Midsummer"
+                           "en": "Midsummer",
+                           "sv": "Midsommar"
                        }
                     }
                     ,
                     {
                       "id": "Kristi",
                       "label": {
-                          "en": "Ascension Day (Kristi himmelfärd)"
+                          "en": "Ascension Day (Kristi himmelfärd)",
+                          "sv": "Kristi himmelfärds"
                       }
                    }
                    ,
                    {
                      "id": "skartorsdagen",
                      "label": {
-                         "en": "Maundy Thursday (Skärtorsdagen)"
+                         "en": "Maundy Thursday (Skärtorsdagen)",
+                         "sv": "Skärtorsdagen"
                      }
                   }
                    ,
                 {
                   "id": "allahelgonhelgen",
                   "label": {
-                      "en": "All Saints Day"
+                      "en": "All Saints Day",
+                      "sv": "Alla helgon"
                   }
                }
                   ]
@@ -186,7 +208,8 @@
           {
             "id": "is_FlagDay",
             "title": {
-                "en": "!{{Is|Isn't}} Swedish flag day"
+                "en": "!{{Is|Isn't}} Swedish flag day",
+                "sv": "!{{Svensk flaggdag|Ej Svensk flaggdag}}"
             }
           }
     ]  

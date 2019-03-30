@@ -1,0 +1,14 @@
+{
+    "title": "Svenska helgdagar",
+    "tags": {
+      "TodaySwedishHoliday": "Röd dag",
+      "TodaySwedishWorkFreeDay": "Arbetsdag",
+      "TodaySwedishCurrentDate": "Senaste API uppdatering",
+      "TodayFlagDay": "Flaggdag",
+      "TodayWeekDay": "Veckodag",
+      "FirstNameOfTheDay": "Namnsdag (1)",
+      "SecondNameOfTheDay": "Namnsdag (2)",
+      "ThirdNameOfTheDay": "Namnsdag (3)",
+      "HolidayNameToken": "Typ av helgdag"
+    }
+  }

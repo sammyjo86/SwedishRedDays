@@ -3,15 +3,15 @@ const fetch = require("node-fetch");
 const Homey = require('homey');
 
 //Create Tokens
-const TodaySwedishHolidayToken = new Homey.FlowToken('TodaySwedishHoliday', {type: 'boolean',title: 'holiday'});
-const TodaySwedishWorkFreeDayToken = new Homey.FlowToken('TodaySwedishWorkFreeDay', {type: 'boolean',title: 'Business day'});
-const TodaySwedishCurrentDate = new Homey.FlowToken('TodaySwedishCurrentDate', {type: 'string',title: 'Last update'});
-const TodayFlagDayToken = new Homey.FlowToken('TodayFlagDay', {type: 'boolean',title: 'Flag day'});
-const TodayWeekDayToken = new Homey.FlowToken('TodayWeekDay', {type: 'string',title: 'Weekday'});
-const FirstNameOfTheDayToken = new Homey.FlowToken('FirstNameOfTheDay', {type: 'string',title: 'Name of the day (1)'});
-const SecondNameOfTheDayToken = new Homey.FlowToken('SecondNameOfTheDay', {type: 'string',title: 'Name of the day (2)'});
-const ThirdNameOfTheDayToken = new Homey.FlowToken('ThirdNameOfTheDay', {type: 'string',title: 'Name of the day (3)'});
-const HolidayNameToken = new Homey.FlowToken('HolidayNameToken', {type: 'string',title: 'Holiday name'});
+const TodaySwedishHolidayToken = new Homey.FlowToken('TodaySwedishHoliday', {type: 'boolean',title: Homey.__("TodaySwedishHoliday")});
+const TodaySwedishWorkFreeDayToken = new Homey.FlowToken('TodaySwedishWorkFreeDay', {type: 'boolean',title: Homey.__("TodaySwedishWorkFreeDay")});
+const TodaySwedishCurrentDate = new Homey.FlowToken('TodaySwedishCurrentDate', {type: 'string',title: Homey.__("TodaySwedishCurrentDate")});
+const TodayFlagDayToken = new Homey.FlowToken('TodayFlagDay', {type: 'boolean',title: Homey.__("TodayFlagDay")});
+const TodayWeekDayToken = new Homey.FlowToken('TodayWeekDay', {type: 'string',title: Homey.__("TodayWeekDay")});
+const FirstNameOfTheDayToken = new Homey.FlowToken('FirstNameOfTheDay', {type: 'string',title: Homey.__("FirstNameOfTheDay")});
+const SecondNameOfTheDayToken = new Homey.FlowToken('SecondNameOfTheDay', {type: 'string',title: Homey.__("SecondNameOfTheDay")});
+const ThirdNameOfTheDayToken = new Homey.FlowToken('ThirdNameOfTheDay', {type: 'string',title: Homey.__("ThirdNameOfTheDay")});
+const HolidayNameToken = new Homey.FlowToken('HolidayNameToken', {type: 'string',title: Homey.__("HolidayNameToken")});
 
 //Create var
 var SwedishHolidayToday;
