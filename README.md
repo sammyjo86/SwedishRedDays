@@ -18,6 +18,7 @@ Provides homey the function to know if the current day is a holiday (Red day) or
 Tags only updates with trigger of cards, todo is to add a cron job. If you have cards triggern every day you should notice.
 
 # Updates
+- ver 1.0.5 - Added Crontask that update tokens at 00:00 every day.
 - Ver 1.0.4 - Addded support for Swedish lang file, corrected a bug in the APP.json (Two conditions hade the same name). Release of ver 1.0.3 only as a beta. 
 - Ver 1.0.3 - Addded support for Flag day condition (new card) and more tokens. Solved a potential problem with cards if no data is present
 - Ver 1.0.2 – Solved a issue with a red triangle stopping the flow
