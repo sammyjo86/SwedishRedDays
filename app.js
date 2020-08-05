@@ -2,21 +2,22 @@
 const fetch = require("node-fetch");
 const Homey = require('homey');
 
-//Create Tokens
-const TodaySwedishHolidayToken = new Homey.FlowToken('TodaySwedishHoliday', {type: 'boolean',title: Homey.__("TodaySwedishHoliday")});
-const TodaySwedishWorkFreeDayToken = new Homey.FlowToken('TodaySwedishWorkFreeDay', {type: 'boolean',title: Homey.__("TodaySwedishWorkFreeDay")});
-const TodaySwedishCurrentDate = new Homey.FlowToken('TodaySwedishCurrentDate', {type: 'string',title: Homey.__("TodaySwedishCurrentDate")});
-const TodayFlagDayToken = new Homey.FlowToken('TodayFlagDay', {type: 'boolean',title: Homey.__("TodayFlagDay")});
-const TodayWeekDayToken = new Homey.FlowToken('TodayWeekDay', {type: 'string',title: Homey.__("TodayWeekDay")});
-const FirstNameOfTheDayToken = new Homey.FlowToken('FirstNameOfTheDay', {type: 'string',title: Homey.__("FirstNameOfTheDay")});
-const SecondNameOfTheDayToken = new Homey.FlowToken('SecondNameOfTheDay', {type: 'string',title: Homey.__("SecondNameOfTheDay")});
-const ThirdNameOfTheDayToken = new Homey.FlowToken('ThirdNameOfTheDay', {type: 'string',title: Homey.__("ThirdNameOfTheDay")});
-const HolidayNameToken = new Homey.FlowToken('HolidayNameToken', {type: 'string',title: Homey.__("HolidayNameToken")});
-
 //Create var
 var SwedishHolidayToday;
 var SwedishHolidayTomorrow;
 var SwedishHolidayYesterday;
+
+//Create Tokens 
+let TodaySwedishHolidayToken = new Homey.FlowToken('TodaySwedishHoliday', {type: 'boolean',title: 'TodaySwedishHoliday'});
+let TodaySwedishWorkFreeDayToken = new Homey.FlowToken('TodaySwedishWorkFreeDay', {type: 'boolean',title: 'TodaySwedishWorkFreeDay'});
+let TodaySwedishCurrentDate = new Homey.FlowToken('TodaySwedishCurrentDate', {type: 'string',title: 'tags.TodaySwedishCurrentDate'});
+let TodayFlagDayToken = new Homey.FlowToken('TodayFlagDay', {type: 'boolean',title: 'TodayFlagDay'});
+let TodayWeekDayToken = new Homey.FlowToken('TodayWeekDay', {type: 'string',title: 'tags.TodayWeekDay'});
+let FirstNameOfTheDayToken = new Homey.FlowToken('FirstNameOfTheDay', {type: 'string',title: 'FirstNameOfTheDay'});
+let SecondNameOfTheDayToken = new Homey.FlowToken('SecondNameOfTheDay', {type: 'string',title: 'SecondNameOfTheDay'});
+let ThirdNameOfTheDayToken = new Homey.FlowToken('ThirdNameOfTheDay', {type: 'string',title: 'ThirdNameOfTheDay'});
+let HolidayNameToken = new Homey.FlowToken('HolidayNameToken', {type: 'string',title: 'HolidayNameToken'});
+
 
 //Parameters
 const DataUrl = "https://api.dryg.net/dagar/v2.1"; //Using api.dryg.net
@@ -29,31 +30,46 @@ let is_MasterHoliday = new Homey.FlowCardCondition('is_MasterHoliday');
 
 //Set Cron parameters
 const cronName = "swedishHolidayCronTask"
-const cronInterval = "0 0 * * *"; // 0 0 * * * = every day at midnight (00:00)
+const cronInterval = "* * * * *"; // 0 0 * * * = every day at midnight (00:00)
 
 class MyApp extends Homey.App {
 
 	async onInit() {
-		this.log('Swedish holiday is running...');
+		console.log(Homey.__("title"));
+		console.log('is running...');
+		
+		//Create Tokens 
+		TodaySwedishHolidayToken = new Homey.FlowToken('TodaySwedishHoliday', {type: 'boolean',title: Homey.__("tags.TodaySwedishHoliday")});
+		TodaySwedishWorkFreeDayToken = new Homey.FlowToken('TodaySwedishWorkFreeDay', {type: 'boolean',title: Homey.__("tags.TodaySwedishWorkFreeDay")});
+		TodaySwedishCurrentDate = new Homey.FlowToken('TodaySwedishCurrentDate', {type: 'string',title: Homey.__("tags.TodaySwedishCurrentDate")});
+		TodayFlagDayToken = new Homey.FlowToken('TodayFlagDay', {type: 'boolean',title: Homey.__("tags.TodayFlagDay")});
+		TodayWeekDayToken = new Homey.FlowToken('TodayWeekDay', {type: 'string',title: Homey.__("tags.TodayWeekDay")});
+		FirstNameOfTheDayToken = new Homey.FlowToken('FirstNameOfTheDay', {type: 'string',title: Homey.__("tags.FirstNameOfTheDay")});
+		SecondNameOfTheDayToken = new Homey.FlowToken('SecondNameOfTheDay', {type: 'string',title: Homey.__("tags.SecondNameOfTheDay")});
+		ThirdNameOfTheDayToken = new Homey.FlowToken('ThirdNameOfTheDay', {type: 'string',title: Homey.__("tags.ThirdNameOfTheDay")});
+		HolidayNameToken = new Homey.FlowToken('HolidayNameToken', {type: 'string',title: Homey.__("tags.HolidayNameToken")});
+		
 
-		//Register crontask
+
+		//Register crontask  
 		Homey.ManagerCron.getTask(cronName)
 			.then(task => {
-				this.log("This crontask is already registred: " + cronName);
-				task.on('run', () => this.GetData());
+				console.log("This crontask is already registred: " + cronName);
+				task.on('run', () => this.updateDataIfInvalid());
 			})
 			.catch(err => {
 				if (err.code == 404) {
-					this.log("This crontask has not been registered yet, registering task: " + cronName);
+					console.log("This crontask has not been registered yet, registering task: " + cronName);
 					Homey.ManagerCron.registerTask(cronName, cronInterval, null)
 						.then(task => {
-							task.on('run', () => this.GetData());
+							task.on('run', () => this.updateDataIfInvalid());
+							console.log("Cron Task.On: " + cronName);
 						})
 						.catch(err => {
-							this.log(`problem with registering crontask: ${err.message}`);
+							console.log(`problem with registering crontask: ${err.message}`);
 						});
 				} else {
-					this.log(`other cron error: ${err.message}`);
+					console.log(`other cron error: ${err.message}`);
 				}
 			});
 	
@@ -192,12 +208,13 @@ class MyApp extends Homey.App {
 		{
 			var d1 = new Date(SwedishHolidayToday.CurrentDate);
 			var d2 = new Date();
-			d2.setHours(1, 0, 0, 0)
+			d1.setHours(0, 0, 0, 0)
+			d2.setHours(0, 0, 0, 0)
 
 			if (d1.getTime() === d2.getTime()) {
-				console.log("Correct day stored")
+				console.log("Correct day stored, D1="+d1+", d2="+d2)
 			} else {
-				console.log("Old data, request new from API")
+				console.log("Old data, request new from API, D1="+d1+", d2="+d2)
 				await this.GetData();
 			}
 		}
@@ -219,10 +236,10 @@ class MyApp extends Homey.App {
 	};
 
 	async runFetchOperation(input) {
-		this.log('Fetch data from API ' + input);
+		console.log('Fetch data from API ' + input);
 		const response = await fetch(this.createURL(input));
 
-		this.log('Fetch data from API complete');
+		console.log('Fetch data from API complete');
 
 		if (response.ok) {
 			return await response.json();

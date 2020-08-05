@@ -1,0 +1,26 @@
+{
+  "1.0.0": {
+    "en": "First beta"
+  },
+  "1.0.1": {
+    "en": "Change of tags behavior and card texts (Could change the behavior of already created cards) description"
+  },
+  "1.0.2": {
+    "en": "Solved a issue with a red triangle stopping the flow"
+  },
+  "1.0.3": {
+    "en": "Added support for Flag day condition (new card) and more tokens. Solved a potential problem with cards if no data is present"
+  },
+  "1.0.4": {
+    "en": "Added support for Swedish lang file, corrected a bug in the APP.json (Two conditions hade the same name). Release of ver 1.0.3 only as a beta. "
+  },
+  "1.0.5": {
+    "en": "Added Crontask that update tokens at 00:00 every day."
+  },
+  "1.0.6": {
+    "en": "Bugfix Homey 5.0"
+  },
+  "1.0.7": {
+    "en": "Bugfix Homey 5.0 and adjusted crontask"
+  }
+}
