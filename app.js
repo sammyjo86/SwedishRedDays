@@ -1,101 +1,142 @@
 'use strict';
 const fetch = require("node-fetch");
 const Homey = require('homey');
+//const { TokenClass } = require("./TokenClass");
 
+console.log('Decleare variables');
 //Create var
 var SwedishHolidayToday;
 var SwedishHolidayTomorrow;
 var SwedishHolidayYesterday;
+var TodaySwedishHolidayToken;
+
+
+
+//TODO items
+//-Missing update at midnight for the data. 
 
 //Create Tokens 
-let TodaySwedishHolidayToken = new Homey.FlowToken('TodaySwedishHoliday', {type: 'boolean',title: 'TodaySwedishHoliday'});
-let TodaySwedishWorkFreeDayToken = new Homey.FlowToken('TodaySwedishWorkFreeDay', {type: 'boolean',title: 'TodaySwedishWorkFreeDay'});
-let TodaySwedishCurrentDate = new Homey.FlowToken('TodaySwedishCurrentDate', {type: 'string',title: 'tags.TodaySwedishCurrentDate'});
-let TodayFlagDayToken = new Homey.FlowToken('TodayFlagDay', {type: 'boolean',title: 'TodayFlagDay'});
-let TodayWeekDayToken = new Homey.FlowToken('TodayWeekDay', {type: 'string',title: 'tags.TodayWeekDay'});
-let FirstNameOfTheDayToken = new Homey.FlowToken('FirstNameOfTheDay', {type: 'string',title: 'FirstNameOfTheDay'});
-let SecondNameOfTheDayToken = new Homey.FlowToken('SecondNameOfTheDay', {type: 'string',title: 'SecondNameOfTheDay'});
-let ThirdNameOfTheDayToken = new Homey.FlowToken('ThirdNameOfTheDay', {type: 'string',title: 'ThirdNameOfTheDay'});
-let HolidayNameToken = new Homey.FlowToken('HolidayNameToken', {type: 'string',title: 'HolidayNameToken'});
+//let TodaySwedishHolidayToken = new Homey.FlowToken('TodaySwedishHoliday', { type: 'boolean', title: 'TodaySwedishHoliday' });
+//let TodaySwedishWorkFreeDayToken = new Homey.FlowToken('TodaySwedishWorkFreeDay', { type: 'boolean', title: 'TodaySwedishWorkFreeDay' });
+//let TodaySwedishCurrentDate = new Homey.FlowToken('TodaySwedishCurrentDate', { type: 'string', title: 'tags.TodaySwedishCurrentDate' });
+//let TodayFlagDayToken = new Homey.FlowToken('TodayFlagDay', { type: 'boolean', title: 'TodayFlagDay' });
+//let TodayWeekDayToken = new Homey.FlowToken('TodayWeekDay', { type: 'string', title: 'tags.TodayWeekDay' });
+//let FirstNameOfTheDayToken = new Homey.FlowToken('FirstNameOfTheDay', { type: 'string', title: 'FirstNameOfTheDay' });
+//let SecondNameOfTheDayToken = new Homey.FlowToken('SecondNameOfTheDay', { type: 'string', title: 'SecondNameOfTheDay' });
+//let ThirdNameOfTheDayToken = new Homey.FlowToken('ThirdNameOfTheDay', { type: 'string', title: 'ThirdNameOfTheDay' });
+//let HolidayNameToken = new Homey.FlowToken('HolidayNameToken', { type: 'string', title: 'HolidayNameToken' });
 
-
+console.log('Set parameters');
 //Parameters
-const DataUrl = "https://api.dryg.net/dagar/v2.1"; //Using api.dryg.net
+const DataUrl = "https://sholiday.faboul.se/dagar/v2.1";
 
-//Set Flow JSON names
-let HolidayCondition = new Homey.FlowCardCondition('is_holiday');
-let DayOfWorkCondition = new Homey.FlowCardCondition('is_DayOfWork');
-let FlagDayCondition = new Homey.FlowCardCondition('is_FlagDay');
-let is_MasterHoliday = new Homey.FlowCardCondition('is_MasterHoliday');
+//Set Flow JSON names this.homey.flow.getCard()
+//const HolidayCondition = this.homey.flow.getConditionCard('is_holiday');
+//const DayOfWorkCondition = this.homey.flow.getConditionCard('is_DayOfWork');
+//const FlagDayCondition = this.homey.flow.getConditionCard('is_FlagDay');
+//const is_MasterHoliday = this.homey.flow.getConditionCard('is_MasterHoliday');
 
-//Set Cron parameters
-const cronName = "swedishHolidayCronTask"
-const cronInterval = "* * * * *"; // 0 0 * * * = every day at midnight (00:00)
+console.log('Start app');
 
 class MyApp extends Homey.App {
 
+	//TodaySwedishHolidayToken = new TokenClass("","");
+
 	async onInit() {
-		console.log(Homey.__("title"));
+		console.log(this.homey.__("title"));
 		console.log('is running...');
+		console.log(this.homey.__("tags.TodaySwedishHoliday"));
 		
+		
+		console.log('Register Global Tokens');
+		const TodaySwedishHolidayToken = await this.homey.flow.createToken("TodaySwedishHoliday", {
+			type: "boolean",
+			title: this.homey.__("tags.TodaySwedishHoliday"),
+		  });
+		const TodaySwedishWorkFreeDayToken = await this.homey.flow.createToken("TodaySwedishWorkFreeDay", {
+			type: "boolean",
+			title: "tags.TodaySwedishWorkFreeDay",
+		  });
+		const TodaySwedishCurrentDateToken = await this.homey.flow.createToken("TodaySwedishCurrentDate", {
+			type: "string",
+			title: "tags.TodaySwedishCurrentDate",
+		  });
+		const TodayFlagDayToken = await this.homey.flow.createToken("TodayFlagDayToken", {
+			type: "boolean",
+			title: "tags.TodayFlagDay",
+		  });
+		const TodayWeekDayToken = await this.homey.flow.createToken("TodayWeekDay", {
+			type: "string",
+			title: "tags.TodayWeekDay",
+		  });
+		const FirstNameOfTheDayToken = await this.homey.flow.createToken("FirstNameOfTheDay", {
+			type: "string",
+			title: "tags.FirstNameOfTheDay",
+		  });
+		const SecondNameOfTheDayToken = await this.homey.flow.createToken("SecondNameOfTheDay", {
+			type: "string",
+			title: "tags.SecondNameOfTheDay",
+		  });
+		const ThirdNameOfTheDayToken = await this.homey.flow.createToken("ThirdNameOfTheDay", {
+			type: "string",
+			title: "tags.ThirdNameOfTheDay",
+		  });
+		const HolidayNameToken = await this.homey.flow.createToken("HolidayNameToken", {
+			type: "string",
+			title: "tags.HolidayNameToken",
+		  });
+
+		  await TodaySwedishHolidayToken.setValue(true);
+		  await TodaySwedishWorkFreeDayToken.setValue(true);
+
 		//Create Tokens 
-		TodaySwedishHolidayToken = new Homey.FlowToken('TodaySwedishHoliday', {type: 'boolean',title: Homey.__("tags.TodaySwedishHoliday")});
-		TodaySwedishWorkFreeDayToken = new Homey.FlowToken('TodaySwedishWorkFreeDay', {type: 'boolean',title: Homey.__("tags.TodaySwedishWorkFreeDay")});
-		TodaySwedishCurrentDate = new Homey.FlowToken('TodaySwedishCurrentDate', {type: 'string',title: Homey.__("tags.TodaySwedishCurrentDate")});
-		TodayFlagDayToken = new Homey.FlowToken('TodayFlagDay', {type: 'boolean',title: Homey.__("tags.TodayFlagDay")});
-		TodayWeekDayToken = new Homey.FlowToken('TodayWeekDay', {type: 'string',title: Homey.__("tags.TodayWeekDay")});
-		FirstNameOfTheDayToken = new Homey.FlowToken('FirstNameOfTheDay', {type: 'string',title: Homey.__("tags.FirstNameOfTheDay")});
-		SecondNameOfTheDayToken = new Homey.FlowToken('SecondNameOfTheDay', {type: 'string',title: Homey.__("tags.SecondNameOfTheDay")});
-		ThirdNameOfTheDayToken = new Homey.FlowToken('ThirdNameOfTheDay', {type: 'string',title: Homey.__("tags.ThirdNameOfTheDay")});
-		HolidayNameToken = new Homey.FlowToken('HolidayNameToken', {type: 'string',title: Homey.__("tags.HolidayNameToken")});
-		
+		//console.log('Create tokens');
+		//TodaySwedishHolidayToken = new Homey.FlowToken('TodaySwedishHoliday', {type: 'boolean',title: Homey.__("tags.TodaySwedishHoliday")});
+		//TodaySwedishWorkFreeDayToken = new Homey.FlowToken('TodaySwedishWorkFreeDay', {type: 'boolean',title: Homey.__("tags.TodaySwedishWorkFreeDay")});
+		//TodaySwedishCurrentDate = new Homey.FlowToken('TodaySwedishCurrentDate', {type: 'string',title: Homey.__("tags.TodaySwedishCurrentDate")});
+		//TodayFlagDayToken = new Homey.FlowToken('TodayFlagDay', {type: 'boolean',title: Homey.__("tags.TodayFlagDay")});
+		//TodayWeekDayToken = new Homey.FlowToken('TodayWeekDay', {type: 'string',title: Homey.__("tags.TodayWeekDay")});
+		//FirstNameOfTheDayToken = new Homey.FlowToken('FirstNameOfTheDay', {type: 'string',title: Homey.__("tags.FirstNameOfTheDay")});
+		//SecondNameOfTheDayToken = new Homey.FlowToken('SecondNameOfTheDay', {type: 'string',title: Homey.__("tags.SecondNameOfTheDay")});
+		//ThirdNameOfTheDayToken = new Homey.FlowToken('ThirdNameOfTheDay', {type: 'string',title: Homey.__("tags.ThirdNameOfTheDay")});
+		//HolidayNameToken = new Homey.FlowToken('HolidayNameToken', {type: 'string',title: Homey.__("tags.HolidayNameToken")});
 
-
-		//Register crontask  
-		Homey.ManagerCron.getTask(cronName)
-			.then(task => {
-				console.log("This crontask is already registred: " + cronName);
-				task.on('run', () => this.updateDataIfInvalid());
-			})
-			.catch(err => {
-				if (err.code == 404) {
-					console.log("This crontask has not been registered yet, registering task: " + cronName);
-					Homey.ManagerCron.registerTask(cronName, cronInterval, null)
-						.then(task => {
-							task.on('run', () => this.updateDataIfInvalid());
-							console.log("Cron Task.On: " + cronName);
-						})
-						.catch(err => {
-							console.log(`problem with registering crontask: ${err.message}`);
-						});
-				} else {
-					console.log(`other cron error: ${err.message}`);
-				}
-			});
+		//Register tokens
+		//console.log('Register tokens');
+		//await TodaySwedishHolidayToken.register(); 
+		//await TodaySwedishWorkFreeDayToken.register();
+		//await TodaySwedishCurrentDateToken.register();
+		//await TodayFlagDayToken.register();
+		//await TodayWeekDayToken.register();
+		//await FirstNameOfTheDayToken.register();
+		//await SecondNameOfTheDayToken.register();
+		//await ThirdNameOfTheDayToken.register();
+		//await HolidayNameToken.register();
 	
-		//Unregister crontask on unload
-		Homey
-			.on('unload', () => {
-				Homey.ManagerCron.unregisterTask(cronName);
-			});
-		
+
+		//RegisterCards
+		console.log('Create flow cards');
+		const HolidayCondition = this.homey.flow.getConditionCard('is_holiday');
 		HolidayCondition
-			.register()
 			.registerRunListener(async (args, state) => {
 				await this.updateDataIfInvalid(); //Check if data needs update
 				if (args.CurrentDay == "today") {
+					console.log('HolidayCondition SwedishHolidayToday.ThisIsRedDay');
 					return Promise.resolve(SwedishHolidayToday.ThisIsRedDay);
 				} else if (args.CurrentDay == "tomorrow") {
+					console.log('HolidayCondition SwedishHolidayTomorrow.ThisIsRedDay');
 					return Promise.resolve(SwedishHolidayTomorrow.ThisIsRedDay);
 				} else if (args.CurrentDay == "yesterday") {
+					console.log('HolidayCondition SwedishHolidayYesterday.ThisIsRedDay');
 					return Promise.resolve(SwedishHolidayYesterday.ThisIsRedDay);
 				} else {
+					console.log('HolidayCondition SwedishHolidayToday.ThisIsRedDay');
 					return Promise.resolve(SwedishHolidayToday.ThisIsRedDay);
 				}
 			});
 
+		const DayOfWorkCondition = this.homey.flow.getConditionCard('is_DayOfWork');
 		DayOfWorkCondition
-			.register()
 			.registerRunListener(async (args, state) => {
 				await this.updateDataIfInvalid();
 				if (args.CurrentDay == "today") {
@@ -109,9 +150,8 @@ class MyApp extends Homey.App {
 				}
 			});
 
-			
+		const FlagDayCondition = this.homey.flow.getConditionCard('is_FlagDay');
 		FlagDayCondition
-		.register()
 		.registerRunListener(async (args, state) => {
 			await this.updateDataIfInvalid();
 			if (args.CurrentDay == "today") {
@@ -125,8 +165,8 @@ class MyApp extends Homey.App {
 			}
 		});
 
+		const is_MasterHoliday = this.homey.flow.getConditionCard('is_MasterHoliday');
 		is_MasterHoliday
-		.register()
 		.registerRunListener(async (args, state) => {
 			await this.updateDataIfInvalid();
 
@@ -140,22 +180,12 @@ class MyApp extends Homey.App {
 			}
 
 		});
-
-		//Register tokens
-		await TodaySwedishHolidayToken.register(); 
-		await TodaySwedishWorkFreeDayToken.register();
-		await TodaySwedishCurrentDate.register();
-		await TodayFlagDayToken.register();
-		await TodayWeekDayToken.register();
-		await FirstNameOfTheDayToken.register();
-		await SecondNameOfTheDayToken.register();
-		await ThirdNameOfTheDayToken.register();
-		await HolidayNameToken.register();
+		
 
 		//Get data on appinit
+		console.log('Prepare to get data');
 		await this.GetData();
-
-		console.log(SwedishHolidayToday);
+		console.log('Data fetched app onInit is complete');
 	};
 
 	async GetData() { //Gets data from the API
@@ -165,7 +195,9 @@ class MyApp extends Homey.App {
 			SwedishHolidayToday = await this.UpdateDataFromAPI("today");
 			SwedishHolidayTomorrow = await this.UpdateDataFromAPI("tomorrow");
 			console.log("Async getdata complete");
+
 			await this.updateTokens();
+
 		} catch (e) {
 			console.error('Error caught Getdata ' + e); //error Try again later
 		}
@@ -174,6 +206,7 @@ class MyApp extends Homey.App {
 	async updateTokens() {
 
 		console.log("Updating tokens");
+
 		await TodaySwedishHolidayToken.setValue(SwedishHolidayToday.ThisIsRedDay);
 		await TodaySwedishWorkFreeDayToken.setValue(this.convertToBooleanOp(SwedishHolidayToday.WorkFreeDay));
 		await TodaySwedishCurrentDate.setValue(SwedishHolidayToday.CurrentDate);
@@ -183,6 +216,7 @@ class MyApp extends Homey.App {
 		await SecondNameOfTheDayToken.setValue(SwedishHolidayToday.SecondName);
 		await ThirdNameOfTheDayToken.setValue(SwedishHolidayToday.ThirdName);
 		await HolidayNameToken.setValue(SwedishHolidayToday.HolidayName);
+
 		console.log("Updating tokens complete");
 
 	}

@@ -1,8 +1,12 @@
 {
   "id": "se.faboul.svenskahelgdagar",
-  "version": "1.0.9",
-  "compatibility": ">=3",
-  "sdk": 2,
+  "version": "1.0.10",
+  "compatibility": ">=5.0.0",
+  "sdk": 3,
+  "platforms": ["local"],
+  "brandColor": "#3d85c6",
+  "source": "https://github.com/sammyjo86/SwedishRedDays",
+  "support": "https://github.com/sammyjo86/SwedishRedDays",
   "name": {
     "en": "Swedish holidays",
     "sv": "Svenska helgdagar"
@@ -22,6 +26,13 @@
   "author": {
     "name": "Sammy Johannesson",
     "email": "sammy.johannesson@gmail.com"
+  },
+  "contributing": {
+    "donate": {
+      "paypal": {
+        "username": "sammjo86"
+      }
+    }
   },
   "contributors": {
     "developers": [
