@@ -8,7 +8,7 @@ console.log('Decleare variables');
 var SwedishHolidayToday;
 var SwedishHolidayTomorrow;
 var SwedishHolidayYesterday;
-var TodaySwedishHolidayToken;
+//var TodaySwedishHolidayToken;
 
 
 
