@@ -1,6 +1,7 @@
 'use strict';
 const fetch = require("node-fetch");
 const Homey = require('homey');
+const { todayIso, addDays, holidayGroup } = require('./lib/RedDays');
 
 console.log('Declare variables');
 //Create var
@@ -171,30 +172,23 @@ class MyApp extends Homey.App {
 
 	}
 
-	SelectDate(input) {
-		var todayDate = new Date();
-		if (input == "today") {
-			todayDate.setDate(todayDate.getDate() - 0);
-			return todayDate;
-		} else if (input == "yesterday") {
-			todayDate.setDate(todayDate.getDate() - 1);
-			return todayDate;
+	SelectDate(input) { //Returns "YYYY-MM-DD" in Homey's timezone, Homey runs apps in UTC
+		const today = todayIso(this.homey.clock.getTimezone());
+		if (input == "yesterday") {
+			return addDays(today, -1);
 		} else if (input == "tomorrow") {
-			todayDate.setDate(todayDate.getDate() + 1);
-			return todayDate;
+			return addDays(today, 1);
 		} else {
-			return todayDate.setDate(todayDate.getDate());
+			return today;
 		}
 	};
 
 	async updateDataIfInvalid() { //Check if data is old, if old get new data from API
 		try {
-			let dataDate = new Date(SwedishHolidayToday.CurrentDate);
-			let today = new Date();
-			dataDate.setHours(0, 0, 0, 0)
-			today.setHours(0, 0, 0, 0)
+			const dataDate = SwedishHolidayToday.CurrentDate;
+			const today = this.SelectDate("today");
 
-			if (dataDate.getTime() === today.getTime()) {
+			if (dataDate === today) {
 				console.log(`Correct day stored, Data=${dataDate}, Today=${today}`);
 			} else {
 				console.log(`Old data, request new from API, Data=${dataDate}, Today=${today}`);
@@ -207,10 +201,7 @@ class MyApp extends Homey.App {
 	};
 
 	createURL(input) {
-		const d = this.SelectDate(input);
-		const year = d.getFullYear();
-		const month = d.getMonth() + 1;
-		const day = d.getDate();
+		const [year, month, day] = this.SelectDate(input).split('-').map(Number);
 
  		return `${DataUrl}/${year}/${month}/${day}`;
  		//return `${DataUrl}/${year}/04/19`;  // For testing
@@ -305,81 +296,8 @@ class MyApp extends Homey.App {
 	};
 
 
-	getHolidayPeriod(input){
-
-		switch (input) {
-
-			case "Sveriges nationaldag":
-			  	return "Sveriges nationaldag";
-			  	break;
-
-			case "Annandag jul":
-			case "Julafton" :
-			case "Juldagen" :
-				console.log("Jul")
-				return "christmas";
-				break;
-
-			case "Påskafton":
-			case "Påskdagen" :
-			case "Annandag påsk" :
-			case "Långfredagen" :
-				console.log("Påsk")
-				return "easter";
-				break;
-
-			case "Pingstafton":
-			case "Pingstdagen" :
-			case "Annandag pingst" :
-				console.log("Pingst")
-				return "pentecost";
-				break;
-
-			case "Valborgsmässoafton" :
-			case "Första Maj" :
-				console.log("Valborg/Första maj")
-				return "valborg";
-				break;
-
-			case "Nyårsafton" :
-			case "Nyårsdagen" :
-				console.log("Nyår")
-				return "newyear";
-				break;
-
-			case "Trettondagsafton" :
-			case "Trettondedag jul" :
-				console.log("Trettonhelgen")
-				return "trettonhelgen";
-				break;
-
-			case "Midsommarafton" :
-			case "Midsommardagen" :
-				console.log("Midsommar")
-				return "midsommar";
-				break;
-
-			case "Kristi himmelfärdsdag" :
-				console.log("Kristi himmelfärdsdag")
-				return "Kristi";
-				break;
-
-			case "Skärtorsdagen" :
-				console.log("Skärtorsdagen")
-				return "skartorsdagen";
-				break;
-	
-			case "Allhelgonaafton" :
-			case "Alla helgons dag" :
-				console.log("Alla helgon helgen")
-				return "allahelgonhelgen";
-				break;
-				  
-			default:
-			 	console.log("This day is not a Swedish named holiday"+ input)
-			 	return "";
-			 	break;
-		  }
+	getHolidayPeriod(input){ //Holiday name -> holiday group id, e.g. "Julafton" -> "christmas"
+		return holidayGroup(input);
 	};
 
 
