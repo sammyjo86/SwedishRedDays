@@ -1,0 +1,11 @@
+{
+  "type": "string",
+  "title": {
+    "en": "Next holiday",
+    "sv": "Nästa helgdag"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/icons/calendar.svg"
+}

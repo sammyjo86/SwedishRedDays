@@ -1,0 +1,39 @@
+{
+  "title": {
+    "en": "!{{Is|Isn't}} Swedish holiday",
+    "sv": "!{{Är|Är inte}} Svensk helgdag"
+  },
+  "titleFormatted": {
+    "en": "[[CurrentDay]] !{{is|isn't}} a Swedish holiday",
+    "sv": "[[CurrentDay]] !{{är|är inte}} svensk helgdag"
+  },
+  "args": [
+    {
+      "type": "dropdown",
+      "name": "CurrentDay",
+      "values": [
+        {
+          "id": "today",
+          "label": {
+            "en": "Today",
+            "sv": "Idag"
+          }
+        },
+        {
+          "id": "yesterday",
+          "label": {
+            "en": "Yesterday",
+            "sv": "Igår"
+          }
+        },
+        {
+          "id": "tomorrow",
+          "label": {
+            "en": "Tomorrow",
+            "sv": "Imorgon"
+          }
+        }
+      ]
+    }
+  ]
+}

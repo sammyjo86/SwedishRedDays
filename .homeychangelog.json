@@ -25,5 +25,9 @@
   },
   "1.0.9": {
     "en": "API link update, API.dryg.net seized operation. New server at sholiday.faboul.se"
+  },
+  "1.1.0": {
+    "en": "New Holiday calendar device with values (red day, day off, flag day, bridge day, week, name day, next holiday) and triggers at a chosen time: holidays, work days, bridge days, specific holidays, name days and days before a holiday. Fixed wrong day just after midnight (timezone) and the Ascension Day condition.",
+    "sv": "Ny enhet Helgdagskalender med värden (röd dag, ledig, flaggdag, klämdag, vecka, namnsdag, nästa helgdag) och triggers vid vald tid: helgdagar, arbetsdagar, klämdagar, specifika helgdagar, namnsdagar och dagar före helgdag. Rättat fel dag strax efter midnatt (tidszon) och villkoret för Kristi himmelsfärd."
   }
 }

@@ -1,0 +1,20 @@
+{
+  "type": "boolean",
+  "title": {
+    "en": "Day off tomorrow",
+    "sv": "Ledig imorgon"
+  },
+  "getable": true,
+  "setable": false,
+  "insights": true,
+  "insightsTitleTrue": {
+    "en": "Day off tomorrow",
+    "sv": "Ledig imorgon"
+  },
+  "insightsTitleFalse": {
+    "en": "Business day tomorrow",
+    "sv": "Arbetsdag imorgon"
+  },
+  "uiComponent": "sensor",
+  "icon": "/assets/icons/calendar.svg"
+}

@@ -1,0 +1,14 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Week",
+    "sv": "Vecka"
+  },
+  "getable": true,
+  "setable": false,
+  "decimals": 0,
+  "min": 1,
+  "max": 53,
+  "uiComponent": "sensor",
+  "icon": "/assets/icons/calendar.svg"
+}

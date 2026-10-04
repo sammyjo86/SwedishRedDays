@@ -1,0 +1,39 @@
+{
+  "title": {
+    "en": "!{{Swedish day off work|Swedish business day}}",
+    "sv": "!{{Helgdag|Arbetsdag}}"
+  },
+  "titleFormatted": {
+    "en": "[[CurrentDay]] !{{is a Swedish day off work|is a Swedish business day}}",
+    "sv": "[[CurrentDay]] !{{helgdag|arbetsdag}}"
+  },
+  "args": [
+    {
+      "type": "dropdown",
+      "name": "CurrentDay",
+      "values": [
+        {
+          "id": "today",
+          "label": {
+            "en": "Today",
+            "sv": "Idag"
+          }
+        },
+        {
+          "id": "yesterday",
+          "label": {
+            "en": "Yesterday",
+            "sv": "Igår"
+          }
+        },
+        {
+          "id": "tomorrow",
+          "label": {
+            "en": "Tomorrow",
+            "sv": "Imorgon"
+          }
+        }
+      ]
+    }
+  ]
+}
