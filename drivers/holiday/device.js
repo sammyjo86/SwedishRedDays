@@ -8,6 +8,12 @@ const MONTHS = {
   sv: ['jan', 'feb', 'mar', 'apr', 'maj', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'],
 };
 
+// Indexed like Date.getUTCDay(), starting on Sunday
+const WEEKDAYS = {
+  en: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+  sv: ['Söndag', 'Måndag', 'Tisdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lördag'],
+};
+
 // Wait before asking the API again after a failed request
 const RETRY_DELAY = 10 * 60 * 1000;
 
@@ -104,12 +110,20 @@ class HolidayDevice extends Device {
     return null;
   }
 
+  getLanguage() {
+    return this.homey.i18n.getLanguage() === 'sv' ? 'sv' : 'en';
+  }
+
+  formatWeekday(iso) {
+    return WEEKDAYS[this.getLanguage()][new Date(`${iso}T00:00:00Z`).getUTCDay()];
+  }
+
   formatHoliday(day, today) {
     const days = RedDays.daysBetween(today, day.date);
     if (days === 0) return `${day.holiday}, ${this.homey.__('date.today')}`;
     if (days === 1) return `${day.holiday}, ${this.homey.__('date.tomorrow')}`;
 
-    const lang = this.homey.i18n.getLanguage() === 'sv' ? 'sv' : 'en';
+    const lang = this.getLanguage();
     const [, month, date] = day.date.split('-').map(Number);
     return `${day.holiday}, ${date} ${MONTHS[lang][month - 1]}`;
   }
@@ -137,6 +151,7 @@ class HolidayDevice extends Device {
       await this.setCapabilityValue('next_holiday', next ? this.formatHoliday(next, today) : '-');
       await this.setCapabilityValue('days_until_holiday', next ? RedDays.daysBetween(today, next.date) : null);
       await this.setCapabilityValue('squeeze_day', day.squeezeDay);
+      await this.setCapabilityValue('day_name', this.formatWeekday(today));
       await this.setCapabilityValue('week_number', day.week || null);
 
       this.today = day;

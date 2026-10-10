@@ -1280,6 +1280,7 @@
         "days_until_holiday",
         "name_day",
         "squeeze_day",
+        "day_name",
         "week_number"
       ],
       "platforms": [
@@ -1310,6 +1311,17 @@
     }
   ],
   "capabilities": {
+    "day_name": {
+      "type": "string",
+      "title": {
+        "en": "Day",
+        "sv": "Dag"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/icons/calendar.svg"
+    },
     "days_until_holiday": {
       "type": "number",
       "title": {
