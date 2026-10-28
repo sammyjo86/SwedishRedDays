@@ -1,0 +1,20 @@
+{
+  "type": "boolean",
+  "title": {
+    "en": "Red day",
+    "sv": "Röd dag"
+  },
+  "getable": true,
+  "setable": false,
+  "insights": true,
+  "insightsTitleTrue": {
+    "en": "Red day",
+    "sv": "Röd dag"
+  },
+  "insightsTitleFalse": {
+    "en": "Not a red day",
+    "sv": "Inte röd dag"
+  },
+  "uiComponent": "sensor",
+  "icon": "/assets/icons/calendar.svg"
+}

@@ -1,0 +1,44 @@
+{
+  "name": {
+    "en": "Holiday calendar",
+    "sv": "Helgdagskalender"
+  },
+  "class": "sensor",
+  "capabilities": [
+    "red_day",
+    "work_free_day",
+    "work_free_day_tomorrow",
+    "flag_day",
+    "holiday_name",
+    "next_holiday",
+    "days_until_holiday",
+    "name_day",
+    "squeeze_day",
+    "day_name",
+    "week_number"
+  ],
+  "platforms": [
+    "local"
+  ],
+  "connectivity": [
+    "cloud"
+  ],
+  "images": {
+    "small": "{{driverAssetsPath}}/images/small.png",
+    "large": "{{driverAssetsPath}}/images/large.png",
+    "xlarge": "{{driverAssetsPath}}/images/xlarge.png"
+  },
+  "pair": [
+    {
+      "id": "list_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_devices"
+      }
+    },
+    {
+      "id": "add_devices",
+      "template": "add_devices"
+    }
+  ]
+}

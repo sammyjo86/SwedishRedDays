@@ -1,0 +1,938 @@
+{
+  "triggers": [
+    {
+      "id": "new_day",
+      "title": {
+        "en": "Every day at a set time",
+        "sv": "Varje dag vid en viss tid"
+      },
+      "titleFormatted": {
+        "en": "Every day at [[time]]",
+        "sv": "Varje dag kl [[time]]"
+      },
+      "hint": {
+        "en": "Triggers every day at the chosen time with information about the day.",
+        "sv": "Triggas varje dag vid vald tid med information om dagen."
+      },
+      "args": [
+        {
+          "type": "time",
+          "name": "time",
+          "title": {
+            "en": "Time",
+            "sv": "Tid"
+          }
+        }
+      ],
+      "tokens": [
+        {
+          "name": "red_day",
+          "type": "boolean",
+          "title": {
+            "en": "Red day",
+            "sv": "Röd dag"
+          },
+          "example": true
+        },
+        {
+          "name": "work_free_day",
+          "type": "boolean",
+          "title": {
+            "en": "Day off work",
+            "sv": "Arbetsfri dag"
+          },
+          "example": true
+        },
+        {
+          "name": "flag_day",
+          "type": "boolean",
+          "title": {
+            "en": "Flag day",
+            "sv": "Flaggdag"
+          },
+          "example": false
+        },
+        {
+          "name": "holiday",
+          "type": "string",
+          "title": {
+            "en": "Holiday",
+            "sv": "Helgdag"
+          },
+          "example": "Julafton"
+        },
+        {
+          "name": "weekday",
+          "type": "string",
+          "title": {
+            "en": "Weekday",
+            "sv": "Veckodag"
+          },
+          "example": "Torsdag"
+        },
+        {
+          "name": "name_day",
+          "type": "string",
+          "title": {
+            "en": "Name day",
+            "sv": "Namnsdag"
+          },
+          "example": "Adam, Eva"
+        }
+      ]
+    },
+    {
+      "id": "holiday_today",
+      "title": {
+        "en": "Today is a holiday",
+        "sv": "Idag är det helgdag"
+      },
+      "titleFormatted": {
+        "en": "Today is a holiday, at [[time]]",
+        "sv": "Idag är det helgdag, kl [[time]]"
+      },
+      "hint": {
+        "en": "Triggers at the chosen time on holidays and holiday eves.",
+        "sv": "Triggas vid vald tid på helgdagar och helgdagsaftnar."
+      },
+      "args": [
+        {
+          "type": "time",
+          "name": "time",
+          "title": {
+            "en": "Time",
+            "sv": "Tid"
+          }
+        }
+      ],
+      "tokens": [
+        {
+          "name": "holiday",
+          "type": "string",
+          "title": {
+            "en": "Holiday",
+            "sv": "Helgdag"
+          },
+          "example": "Julafton"
+        }
+      ]
+    },
+    {
+      "id": "flag_day_today",
+      "title": {
+        "en": "Today is a flag day",
+        "sv": "Idag är det flaggdag"
+      },
+      "titleFormatted": {
+        "en": "Today is a flag day, at [[time]]",
+        "sv": "Idag är det flaggdag, kl [[time]]"
+      },
+      "hint": {
+        "en": "Triggers at the chosen time on flag days.",
+        "sv": "Triggas vid vald tid på flaggdagar."
+      },
+      "args": [
+        {
+          "type": "time",
+          "name": "time",
+          "title": {
+            "en": "Time",
+            "sv": "Tid"
+          }
+        }
+      ],
+      "tokens": [
+        {
+          "name": "flag_day",
+          "type": "string",
+          "title": {
+            "en": "Flag day",
+            "sv": "Flaggdag"
+          },
+          "example": "Sveriges nationaldag och svenska flaggans dag"
+        }
+      ]
+    },
+    {
+      "id": "holiday_tomorrow",
+      "title": {
+        "en": "Tomorrow is a holiday",
+        "sv": "Imorgon är det helgdag"
+      },
+      "titleFormatted": {
+        "en": "Tomorrow is a holiday, at [[time]]",
+        "sv": "Imorgon är det helgdag, kl [[time]]"
+      },
+      "hint": {
+        "en": "Triggers at the chosen time the day before a holiday or holiday eve.",
+        "sv": "Triggas vid vald tid dagen före en helgdag eller helgdagsafton."
+      },
+      "args": [
+        {
+          "type": "time",
+          "name": "time",
+          "title": {
+            "en": "Time",
+            "sv": "Tid"
+          }
+        }
+      ],
+      "tokens": [
+        {
+          "name": "holiday",
+          "type": "string",
+          "title": {
+            "en": "Holiday",
+            "sv": "Helgdag"
+          },
+          "example": "Julafton"
+        }
+      ]
+    },
+    {
+      "id": "day_off_tomorrow",
+      "title": {
+        "en": "Tomorrow is a day off work",
+        "sv": "Imorgon är det ledigt"
+      },
+      "titleFormatted": {
+        "en": "Tomorrow is a day off work, at [[time]]",
+        "sv": "Imorgon är det ledigt, kl [[time]]"
+      },
+      "hint": {
+        "en": "Triggers at the chosen time the day before a work-free day (weekends included).",
+        "sv": "Triggas vid vald tid dagen före en arbetsfri dag (även helger)."
+      },
+      "args": [
+        {
+          "type": "time",
+          "name": "time",
+          "title": {
+            "en": "Time",
+            "sv": "Tid"
+          }
+        }
+      ],
+      "tokens": [
+        {
+          "name": "holiday",
+          "type": "string",
+          "title": {
+            "en": "Holiday",
+            "sv": "Helgdag"
+          },
+          "example": "Julafton"
+        },
+        {
+          "name": "weekday",
+          "type": "string",
+          "title": {
+            "en": "Weekday",
+            "sv": "Veckodag"
+          },
+          "example": "Lördag"
+        }
+      ]
+    },
+    {
+      "id": "work_day_today",
+      "title": {
+        "en": "Today is a work day",
+        "sv": "Idag är det arbetsdag"
+      },
+      "titleFormatted": {
+        "en": "Today is a work day, at [[time]]",
+        "sv": "Idag är det arbetsdag, kl [[time]]"
+      },
+      "hint": {
+        "en": "Triggers at the chosen time on days that are not work-free.",
+        "sv": "Triggas vid vald tid på dagar som inte är arbetsfria."
+      },
+      "args": [
+        {
+          "type": "time",
+          "name": "time",
+          "title": {
+            "en": "Time",
+            "sv": "Tid"
+          }
+        }
+      ],
+      "tokens": [
+        {
+          "name": "weekday",
+          "type": "string",
+          "title": {
+            "en": "Weekday",
+            "sv": "Veckodag"
+          },
+          "example": "Måndag"
+        }
+      ]
+    },
+    {
+      "id": "work_day_tomorrow",
+      "title": {
+        "en": "Tomorrow is a work day",
+        "sv": "Imorgon är det arbetsdag"
+      },
+      "titleFormatted": {
+        "en": "Tomorrow is a work day, at [[time]]",
+        "sv": "Imorgon är det arbetsdag, kl [[time]]"
+      },
+      "hint": {
+        "en": "Triggers at the chosen time the day before a work day, e.g. to set an alarm.",
+        "sv": "Triggas vid vald tid dagen före en arbetsdag, t.ex. för att ställa väckning."
+      },
+      "args": [
+        {
+          "type": "time",
+          "name": "time",
+          "title": {
+            "en": "Time",
+            "sv": "Tid"
+          }
+        }
+      ],
+      "tokens": [
+        {
+          "name": "weekday",
+          "type": "string",
+          "title": {
+            "en": "Weekday",
+            "sv": "Veckodag"
+          },
+          "example": "Måndag"
+        }
+      ]
+    },
+    {
+      "id": "squeeze_day_today",
+      "title": {
+        "en": "Today is a bridge day",
+        "sv": "Idag är det klämdag"
+      },
+      "titleFormatted": {
+        "en": "Today is a bridge day (klämdag), at [[time]]",
+        "sv": "Idag är det klämdag, kl [[time]]"
+      },
+      "hint": {
+        "en": "A work day between a holiday and a weekend.",
+        "sv": "En arbetsdag mellan en helgdag och en helg."
+      },
+      "args": [
+        {
+          "type": "time",
+          "name": "time",
+          "title": {
+            "en": "Time",
+            "sv": "Tid"
+          }
+        }
+      ]
+    },
+    {
+      "id": "squeeze_day_tomorrow",
+      "title": {
+        "en": "Tomorrow is a bridge day",
+        "sv": "Imorgon är det klämdag"
+      },
+      "titleFormatted": {
+        "en": "Tomorrow is a bridge day (klämdag), at [[time]]",
+        "sv": "Imorgon är det klämdag, kl [[time]]"
+      },
+      "hint": {
+        "en": "A work day between a holiday and a weekend.",
+        "sv": "En arbetsdag mellan en helgdag och en helg."
+      },
+      "args": [
+        {
+          "type": "time",
+          "name": "time",
+          "title": {
+            "en": "Time",
+            "sv": "Tid"
+          }
+        }
+      ]
+    },
+    {
+      "id": "specific_holiday",
+      "title": {
+        "en": "A specific holiday",
+        "sv": "En specifik helgdag"
+      },
+      "titleFormatted": {
+        "en": "[[holiday]] is [[when]], at [[time]]",
+        "sv": "[[holiday]] är [[when]], kl [[time]]"
+      },
+      "hint": {
+        "en": "Triggers at the chosen time on, or the day before, the chosen holiday.",
+        "sv": "Triggas vid vald tid på, eller dagen före, vald helgdag."
+      },
+      "args": [
+        {
+          "type": "dropdown",
+          "name": "holiday",
+          "title": {
+            "en": "Holiday",
+            "sv": "Helgdag"
+          },
+          "values": [
+            {
+              "id": "christmas",
+              "label": {
+                "en": "Christmas",
+                "sv": "Jul"
+              }
+            },
+            {
+              "id": "easter",
+              "label": {
+                "en": "Easter weekend",
+                "sv": "Påsk"
+              }
+            },
+            {
+              "id": "pentecost",
+              "label": {
+                "en": "Pentecost (Pingst)",
+                "sv": "Pingst"
+              }
+            },
+            {
+              "id": "valborg",
+              "label": {
+                "en": "Walpurgis/1st may (Valborg/1e maj)",
+                "sv": "Valborg/1e maj"
+              }
+            },
+            {
+              "id": "newyear",
+              "label": {
+                "en": "New Year",
+                "sv": "Nyår"
+              }
+            },
+            {
+              "id": "trettonhelgen",
+              "label": {
+                "en": "Epiphany weekend (Trettonhelgen)",
+                "sv": "Trettonhelgen"
+              }
+            },
+            {
+              "id": "midsommar",
+              "label": {
+                "en": "Midsummer",
+                "sv": "Midsommar"
+              }
+            },
+            {
+              "id": "Kristi",
+              "label": {
+                "en": "Ascension Day (Kristi himmelfärd)",
+                "sv": "Kristi himmelfärds"
+              }
+            },
+            {
+              "id": "skartorsdagen",
+              "label": {
+                "en": "Maundy Thursday (Skärtorsdagen)",
+                "sv": "Skärtorsdagen"
+              }
+            },
+            {
+              "id": "allahelgonhelgen",
+              "label": {
+                "en": "All Saints Day",
+                "sv": "Alla helgon"
+              }
+            },
+            {
+              "id": "nationaldag",
+              "label": {
+                "en": "National Day",
+                "sv": "Nationaldagen"
+              }
+            }
+          ]
+        },
+        {
+          "type": "dropdown",
+          "name": "when",
+          "title": {
+            "en": "When",
+            "sv": "När"
+          },
+          "values": [
+            {
+              "id": "today",
+              "label": {
+                "en": "Today",
+                "sv": "Idag"
+              }
+            },
+            {
+              "id": "tomorrow",
+              "label": {
+                "en": "Tomorrow",
+                "sv": "Imorgon"
+              }
+            }
+          ]
+        },
+        {
+          "type": "time",
+          "name": "time",
+          "title": {
+            "en": "Time",
+            "sv": "Tid"
+          }
+        }
+      ],
+      "tokens": [
+        {
+          "name": "holiday",
+          "type": "string",
+          "title": {
+            "en": "Holiday",
+            "sv": "Helgdag"
+          },
+          "example": "Julafton"
+        }
+      ]
+    },
+    {
+      "id": "name_day",
+      "title": {
+        "en": "Someone has name day",
+        "sv": "Någon har namnsdag"
+      },
+      "titleFormatted": {
+        "en": "[[name]] has name day, at [[time]]",
+        "sv": "[[name]] har namnsdag, kl [[time]]"
+      },
+      "hint": {
+        "en": "Separate several names with commas.",
+        "sv": "Separera flera namn med komma."
+      },
+      "args": [
+        {
+          "type": "text",
+          "name": "name",
+          "title": {
+            "en": "Name",
+            "sv": "Namn"
+          },
+          "placeholder": {
+            "en": "Anna, Erik",
+            "sv": "Anna, Erik"
+          }
+        },
+        {
+          "type": "time",
+          "name": "time",
+          "title": {
+            "en": "Time",
+            "sv": "Tid"
+          }
+        }
+      ],
+      "tokens": [
+        {
+          "name": "name",
+          "type": "string",
+          "title": {
+            "en": "Name",
+            "sv": "Namn"
+          },
+          "example": "Anna"
+        }
+      ]
+    },
+    {
+      "id": "days_before_holiday",
+      "title": {
+        "en": "Days before a holiday",
+        "sv": "Dagar före helgdag"
+      },
+      "titleFormatted": {
+        "en": "[[days]] days before a holiday, at [[time]]",
+        "sv": "[[days]] dagar före helgdag, kl [[time]]"
+      },
+      "hint": {
+        "en": "Triggers at the chosen time a number of days before a public holiday that is a day off.",
+        "sv": "Triggas vid vald tid ett antal dagar före en helgdag som är ledig."
+      },
+      "args": [
+        {
+          "type": "number",
+          "name": "days",
+          "title": {
+            "en": "Days",
+            "sv": "Dagar"
+          },
+          "min": 1,
+          "max": 60,
+          "step": 1,
+          "placeholder": {
+            "en": "7",
+            "sv": "7"
+          }
+        },
+        {
+          "type": "time",
+          "name": "time",
+          "title": {
+            "en": "Time",
+            "sv": "Tid"
+          }
+        }
+      ],
+      "tokens": [
+        {
+          "name": "holiday",
+          "type": "string",
+          "title": {
+            "en": "Holiday",
+            "sv": "Helgdag"
+          },
+          "example": "Julafton"
+        },
+        {
+          "name": "date",
+          "type": "string",
+          "title": {
+            "en": "Date",
+            "sv": "Datum"
+          },
+          "example": "2026-12-24"
+        }
+      ]
+    }
+  ],
+  "conditions": [
+    {
+      "id": "is_red_day",
+      "title": {
+        "en": "!{{Is|Is not}} a red day",
+        "sv": "!{{Är|Är inte}} röd dag"
+      },
+      "titleFormatted": {
+        "en": "[[day]] !{{is|is not}} a red day",
+        "sv": "[[day]] !{{är|är inte}} röd dag"
+      },
+      "args": [
+        {
+          "type": "dropdown",
+          "name": "day",
+          "title": {
+            "en": "Day",
+            "sv": "Dag"
+          },
+          "values": [
+            {
+              "id": "today",
+              "label": {
+                "en": "Today",
+                "sv": "Idag"
+              }
+            },
+            {
+              "id": "tomorrow",
+              "label": {
+                "en": "Tomorrow",
+                "sv": "Imorgon"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "is_day_off",
+      "title": {
+        "en": "!{{Is|Is not}} a day off work",
+        "sv": "!{{Är|Är inte}} ledig dag"
+      },
+      "titleFormatted": {
+        "en": "[[day]] !{{is|is not}} a day off work",
+        "sv": "[[day]] !{{är|är inte}} ledig dag"
+      },
+      "args": [
+        {
+          "type": "dropdown",
+          "name": "day",
+          "title": {
+            "en": "Day",
+            "sv": "Dag"
+          },
+          "values": [
+            {
+              "id": "today",
+              "label": {
+                "en": "Today",
+                "sv": "Idag"
+              }
+            },
+            {
+              "id": "tomorrow",
+              "label": {
+                "en": "Tomorrow",
+                "sv": "Imorgon"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "is_flag_day",
+      "title": {
+        "en": "!{{Is|Is not}} a flag day",
+        "sv": "!{{Är|Är inte}} flaggdag"
+      },
+      "titleFormatted": {
+        "en": "[[day]] !{{is|is not}} a flag day",
+        "sv": "[[day]] !{{är|är inte}} flaggdag"
+      },
+      "args": [
+        {
+          "type": "dropdown",
+          "name": "day",
+          "title": {
+            "en": "Day",
+            "sv": "Dag"
+          },
+          "values": [
+            {
+              "id": "today",
+              "label": {
+                "en": "Today",
+                "sv": "Idag"
+              }
+            },
+            {
+              "id": "tomorrow",
+              "label": {
+                "en": "Tomorrow",
+                "sv": "Imorgon"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "is_squeeze_day",
+      "title": {
+        "en": "!{{Is|Is not}} a bridge day",
+        "sv": "!{{Är|Är inte}} klämdag"
+      },
+      "titleFormatted": {
+        "en": "[[day]] !{{is|is not}} a bridge day (klämdag)",
+        "sv": "[[day]] !{{är|är inte}} klämdag"
+      },
+      "args": [
+        {
+          "type": "dropdown",
+          "name": "day",
+          "title": {
+            "en": "Day",
+            "sv": "Dag"
+          },
+          "values": [
+            {
+              "id": "today",
+              "label": {
+                "en": "Today",
+                "sv": "Idag"
+              }
+            },
+            {
+              "id": "tomorrow",
+              "label": {
+                "en": "Tomorrow",
+                "sv": "Imorgon"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "is_specific_holiday",
+      "title": {
+        "en": "!{{Is|Is not}} a specific holiday",
+        "sv": "!{{Är|Är inte}} en specifik helgdag"
+      },
+      "titleFormatted": {
+        "en": "[[day]] !{{is|is not}} [[holiday]]",
+        "sv": "[[day]] !{{är|är inte}} [[holiday]]"
+      },
+      "args": [
+        {
+          "type": "dropdown",
+          "name": "day",
+          "title": {
+            "en": "Day",
+            "sv": "Dag"
+          },
+          "values": [
+            {
+              "id": "today",
+              "label": {
+                "en": "Today",
+                "sv": "Idag"
+              }
+            },
+            {
+              "id": "tomorrow",
+              "label": {
+                "en": "Tomorrow",
+                "sv": "Imorgon"
+              }
+            }
+          ]
+        },
+        {
+          "type": "dropdown",
+          "name": "holiday",
+          "title": {
+            "en": "Holiday",
+            "sv": "Helgdag"
+          },
+          "values": [
+            {
+              "id": "christmas",
+              "label": {
+                "en": "Christmas",
+                "sv": "Jul"
+              }
+            },
+            {
+              "id": "easter",
+              "label": {
+                "en": "Easter weekend",
+                "sv": "Påsk"
+              }
+            },
+            {
+              "id": "pentecost",
+              "label": {
+                "en": "Pentecost (Pingst)",
+                "sv": "Pingst"
+              }
+            },
+            {
+              "id": "valborg",
+              "label": {
+                "en": "Walpurgis/1st may (Valborg/1e maj)",
+                "sv": "Valborg/1e maj"
+              }
+            },
+            {
+              "id": "newyear",
+              "label": {
+                "en": "New Year",
+                "sv": "Nyår"
+              }
+            },
+            {
+              "id": "trettonhelgen",
+              "label": {
+                "en": "Epiphany weekend (Trettonhelgen)",
+                "sv": "Trettonhelgen"
+              }
+            },
+            {
+              "id": "midsommar",
+              "label": {
+                "en": "Midsummer",
+                "sv": "Midsommar"
+              }
+            },
+            {
+              "id": "Kristi",
+              "label": {
+                "en": "Ascension Day (Kristi himmelfärd)",
+                "sv": "Kristi himmelfärds"
+              }
+            },
+            {
+              "id": "skartorsdagen",
+              "label": {
+                "en": "Maundy Thursday (Skärtorsdagen)",
+                "sv": "Skärtorsdagen"
+              }
+            },
+            {
+              "id": "allahelgonhelgen",
+              "label": {
+                "en": "All Saints Day",
+                "sv": "Alla helgon"
+              }
+            },
+            {
+              "id": "nationaldag",
+              "label": {
+                "en": "National Day",
+                "sv": "Nationaldagen"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "has_name_day",
+      "title": {
+        "en": "!{{Has|Does not have}} name day",
+        "sv": "!{{Har|Har inte}} namnsdag"
+      },
+      "titleFormatted": {
+        "en": "[[name]] !{{has|does not have}} name day [[day]]",
+        "sv": "[[name]] !{{har|har inte}} namnsdag [[day]]"
+      },
+      "args": [
+        {
+          "type": "text",
+          "name": "name",
+          "title": {
+            "en": "Name",
+            "sv": "Namn"
+          },
+          "placeholder": {
+            "en": "Anna, Erik",
+            "sv": "Anna, Erik"
+          }
+        },
+        {
+          "type": "dropdown",
+          "name": "day",
+          "title": {
+            "en": "Day",
+            "sv": "Dag"
+          },
+          "values": [
+            {
+              "id": "today",
+              "label": {
+                "en": "Today",
+                "sv": "Idag"
+              }
+            },
+            {
+              "id": "tomorrow",
+              "label": {
+                "en": "Tomorrow",
+                "sv": "Imorgon"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

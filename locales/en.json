@@ -1,14 +1,27 @@
 {
-    "title": "Swedish holidays",
-    "tags": {
-      "TodaySwedishHoliday": "Holiday (Red)",
-      "TodaySwedishWorkFreeDay": "Business day",
-      "TodaySwedishCurrentDate": "Last API update",
-      "TodayFlagDay": "Flag day",
-      "TodayWeekDay": "Weekday",
-      "FirstNameOfTheDay": "Name of the day (1)",
-      "SecondNameOfTheDay": "Name of the day (2)",
-      "ThirdNameOfTheDay": "Name of the day (3)",
-      "HolidayNameToken": "Holiday name"
-    }
+  "title": "Swedish holidays",
+  "tags": {
+    "TodaySwedishHoliday": "Holiday (Red)",
+    "TodaySwedishWorkFreeDay": "Business day",
+    "TodaySwedishCurrentDate": "Last API update",
+    "TodayFlagDay": "Flag day",
+    "TodayWeekDay": "Weekday",
+    "FirstNameOfTheDay": "Name of the day (1)",
+    "SecondNameOfTheDay": "Name of the day (2)",
+    "ThirdNameOfTheDay": "Name of the day (3)",
+    "HolidayNameToken": "Holiday name"
+  },
+  "device": {
+    "name": "Swedish holidays"
+  },
+  "date": {
+    "today": "today",
+    "tomorrow": "tomorrow"
+  },
+  "holiday": {
+    "none": "None"
+  },
+  "error": {
+    "no_data": "No holiday data yet, try again in a minute"
   }
+}

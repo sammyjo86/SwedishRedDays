@@ -1,0 +1,20 @@
+{
+  "type": "boolean",
+  "title": {
+    "en": "Bridge day",
+    "sv": "Klämdag"
+  },
+  "getable": true,
+  "setable": false,
+  "insights": true,
+  "insightsTitleTrue": {
+    "en": "Bridge day",
+    "sv": "Klämdag"
+  },
+  "insightsTitleFalse": {
+    "en": "Not a bridge day",
+    "sv": "Inte klämdag"
+  },
+  "uiComponent": "sensor",
+  "icon": "/assets/icons/calendar.svg"
+}

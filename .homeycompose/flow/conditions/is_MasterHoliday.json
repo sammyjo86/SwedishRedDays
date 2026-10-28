@@ -1,0 +1,95 @@
+{
+  "title": {
+    "en": "!{{Is|Isn't}} Specific Swedish holiday",
+    "sv": "!{{Specifik helgdag|Inte en specifik helgdag}}"
+  },
+  "titleFormatted": {
+    "en": "Today !{{is|isn't}} [[MasterHoliday]]",
+    "sv": "Idag !{{är|är inte}} [[MasterHoliday]]"
+  },
+  "args": [
+    {
+      "type": "dropdown",
+      "name": "MasterHoliday",
+      "values": [
+        {
+          "id": "christmas",
+          "label": {
+            "en": "Christmas",
+            "sv": "Jul"
+          }
+        },
+        {
+          "id": "easter",
+          "label": {
+            "en": "Easter weekend",
+            "sv": "Påsk"
+          }
+        },
+        {
+          "id": "pentecost",
+          "label": {
+            "en": "Pentecost (Pingst)",
+            "sv": "Pingst"
+          }
+        },
+        {
+          "id": "valborg",
+          "label": {
+            "en": "Walpurgis/1st may (Valborg/1e maj)",
+            "sv": "Valborg/1e maj"
+          }
+        },
+        {
+          "id": "newyear",
+          "label": {
+            "en": "New Year",
+            "sv": "Nyår"
+          }
+        },
+        {
+          "id": "trettonhelgen",
+          "label": {
+            "en": "Epiphany weekend (Trettonhelgen)",
+            "sv": "Trettonhelgen"
+          }
+        },
+        {
+          "id": "midsommar",
+          "label": {
+            "en": "Midsummer",
+            "sv": "Midsommar"
+          }
+        },
+        {
+          "id": "Kristi",
+          "label": {
+            "en": "Ascension Day (Kristi himmelfärd)",
+            "sv": "Kristi himmelfärds"
+          }
+        },
+        {
+          "id": "skartorsdagen",
+          "label": {
+            "en": "Maundy Thursday (Skärtorsdagen)",
+            "sv": "Skärtorsdagen"
+          }
+        },
+        {
+          "id": "allahelgonhelgen",
+          "label": {
+            "en": "All Saints Day",
+            "sv": "Alla helgon"
+          }
+        },
+        {
+          "id": "nationaldag",
+          "label": {
+            "en": "National Day",
+            "sv": "Nationaldagen"
+          }
+        }
+      ]
+    }
+  ]
+}

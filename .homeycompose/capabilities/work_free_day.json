@@ -1,0 +1,20 @@
+{
+  "type": "boolean",
+  "title": {
+    "en": "Day off work",
+    "sv": "Arbetsfri dag"
+  },
+  "getable": true,
+  "setable": false,
+  "insights": true,
+  "insightsTitleTrue": {
+    "en": "Day off work",
+    "sv": "Arbetsfri dag"
+  },
+  "insightsTitleFalse": {
+    "en": "Business day",
+    "sv": "Arbetsdag"
+  },
+  "uiComponent": "sensor",
+  "icon": "/assets/icons/calendar.svg"
+}

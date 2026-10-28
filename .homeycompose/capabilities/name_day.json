@@ -1,0 +1,11 @@
+{
+  "type": "string",
+  "title": {
+    "en": "Name day",
+    "sv": "Namnsdag"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/icons/calendar.svg"
+}

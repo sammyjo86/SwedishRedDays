@@ -1,0 +1,54 @@
+{
+  "id": "se.faboul.svenskahelgdagar",
+  "version": "1.1.0",
+  "compatibility": ">=5.0.0",
+  "sdk": 3,
+  "platforms": [
+    "local"
+  ],
+  "brandColor": "#3d85c6",
+  "source": "https://github.com/sammyjo86/SwedishRedDays",
+  "support": "https://github.com/sammyjo86/SwedishRedDays",
+  "name": {
+    "en": "Swedish holidays",
+    "sv": "Svenska helgdagar"
+  },
+  "description": {
+    "en": "Provides Homey the function to know which days are Swedish holidays",
+    "sv": "Ger Homey möjlighet att veta vilka dagar som är helgdagar och inte helgdagar"
+  },
+  "category": [
+    "tools"
+  ],
+  "permissions": [],
+  "images": {
+    "large": "/assets/images/large.png",
+    "small": "/assets/images/small.png"
+  },
+  "author": {
+    "name": "Sammy Johannesson",
+    "email": "sammy.johannesson@gmail.com"
+  },
+  "contributing": {
+    "donate": {
+      "paypal": {
+        "username": "sammjo86"
+      }
+    }
+  },
+  "contributors": {
+    "developers": [
+      {
+        "name": "Sonny johannesson",
+        "email": "sonny.johannesson@gmail.com"
+      },
+      {
+        "name": "Johan Bendz",
+        "email": "Johan_Bendz@hotmail.com"
+      }
+    ]
+  },
+  "bugs": {
+    "url": "https://github.com/sammyjo86/SwedishRedDays/issues"
+  }
+}
