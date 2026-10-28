@@ -14,14 +14,10 @@
     "days_until_holiday",
     "name_day",
     "squeeze_day",
-    "day_name",
     "week_number"
   ],
   "platforms": [
     "local"
-  ],
-  "connectivity": [
-    "cloud"
   ],
   "images": {
     "small": "{{driverAssetsPath}}/images/small.png",

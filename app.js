@@ -1,19 +1,12 @@
 'use strict';
-const fetch = require("node-fetch");
 const Homey = require('homey');
-const { todayIso, addDays, holidayGroup } = require('./lib/RedDays');
+const { todayIso, addDays, holidayGroup, getRawDay } = require('./lib/RedDays');
 
 console.log('Declare variables');
 //Create var
 let SwedishHolidayToday;
 let SwedishHolidayTomorrow;
 let SwedishHolidayYesterday;
-
-console.log('Set parameters');
-//Parameters
-const DataUrl = "https://sholiday.faboul.se/dagar/v2.1";
-
-
 
 console.log('Start app');
 
@@ -200,29 +193,10 @@ class MyApp extends Homey.App {
 		}
 	};
 
-	createURL(input) {
-		const [year, month, day] = this.SelectDate(input).split('-').map(Number);
+	async UpdateDataFromAPI(input) { //Calculates the day locally, same data format as the old API
 
- 		return `${DataUrl}/${year}/${month}/${day}`;
- 		//return `${DataUrl}/${year}/04/19`;  // For testing
-	};
-
-	async runFetchOperation(input) {
-		console.log('Fetch data from API ' + input);
-		const response = await fetch(this.createURL(input));
-
-		console.log('Fetch data from API complete');
-
-		if (response.ok) {
-			return await response.json();
-		}
-
-		throw Error(`Failed to get data from API: ${input}, response code: ${response.status}`);
-	};
-
-	async UpdateDataFromAPI(input) { //Get data from API adapted for https://api.dryg.net/ with fetch
-
-		const response = await this.runFetchOperation(input);
+		const response = { dagar: [getRawDay(this.SelectDate(input))] };
+		//const response = { dagar: [getRawDay(`${new Date().getFullYear()}-04-19`)] };  // For testing
 		return {
 			CurrentDate: response.dagar[0]["datum"],
 
